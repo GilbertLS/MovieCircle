@@ -5,10 +5,6 @@ import FacebookStore from '../../../stores/FacebookStore';
 import FacebookLogin from '../../components/FacebookLogin';
 
 export default class LoginPage extends Component {
-  componentDidMount() {
-    FacebookActions.initFacebook();
-  }
-
   render() {
     return (
       <div>

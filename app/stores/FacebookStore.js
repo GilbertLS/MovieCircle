@@ -10,6 +10,12 @@ class FacebookStore {
       _handleVerifyToken: FacebookActions.VERIFY_TOKEN,
     });
 
+    this.exportPublicMethods({
+      getMe: this.getMe,
+      getLoggedIn: this.getLoggedIn,
+      getAccessToken: this.getAccessToken,
+    });
+
     this.state = {
       me: undefined,
     };
@@ -24,7 +30,6 @@ class FacebookStore {
     this.setState({
       me: response,
     });
-    //FacebookActions.verifyToken(this.getAccessToken);
   }
 
   _handleLogout(response) {
@@ -44,6 +49,10 @@ class FacebookStore {
 
   getMe() {
     return this.state.me;
+  }
+
+  getLoggedIn() {
+    return this.state.me && this.state.me.id;
   }
 }
 

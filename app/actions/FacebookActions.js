@@ -1,6 +1,4 @@
 import alt from '../alt';
-import loginAPI from '../api/LoginAPI';
-
 const APP_ID = '1065027943579868';
 
 class FacebookActions {
@@ -31,7 +29,6 @@ class FacebookActions {
   getLoginStatus() {
     return (dispatch) => {
       window.FB.getLoginStatus((response) => {
-        console.log(response);
         if(response.status == 'connected') {
           window.FB.api('/me', {fields: ['first_name', 'last_name']}, (meResponse) => {
             dispatch(meResponse);

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start-android": "node node_modules/react-native/local-cli/cli.js start",
-    "start-web": "webpack-dev-server --progress --colors --content-base web/build/ --config web/webpack/webpack.local.config --hot",
+    "start-web": "node ./web/webpack/server.js",
     "build-web": "webpack -p --progress --config webpack.production.config.js",
     "clean": "rm /web/build/app.js"
   },
@@ -15,7 +15,9 @@
     "babel-preset-react": "^6.11.1",
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.22.0",
     "postcss-loader": "^0.13.0",
+    "react-hot-loader": "^3.0.0-beta.3",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1"
