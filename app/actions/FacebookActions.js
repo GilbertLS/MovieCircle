@@ -31,7 +31,10 @@ class FacebookActions {
       window.FB.getLoginStatus((response) => {
         if(response.status == 'connected') {
           window.FB.api('/me', {fields: ['first_name', 'last_name']}, (meResponse) => {
-            dispatch(meResponse);
+            dispatch({
+              auth: response,
+              me: meResponse,
+            });
           });
         }
       });
@@ -43,7 +46,10 @@ class FacebookActions {
       window.FB.login((response) => {
         if(response.status == 'connected') {
           window.FB.api('/me', {fields: ['first_name', 'last_name']}, (meResponse) => {
-            dispatch(meResponse);
+            dispatch({
+              auth: response,
+              me: meResponse,
+            });
           });
         }
       });

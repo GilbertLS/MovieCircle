@@ -1,16 +1,30 @@
 import alt from '../alt';
-import FacebookActions from '../actions/AuthAction';
+import AuthActions from '../actions/AuthActions';
 
 class AuthStore {
   constructor() {
-    this.bindListeners({});
+    this.bindListeners({
+      _handleVerifyFacebook: AuthActions.VERIFY_FACEBOOK,
+    });
 
-    this.exportPublicMethods({});
+    this.exportPublicMethods({
+      getValid: this.getValid,
+    });
 
-    this.state = {};
+    this.state = {
+      is_valid: false,
+    };
   }
 
+    _handleVerifyFacebook(response) {
+      this.setState({
+        is_valid: response.is_valid,
+      });
+    }
 
+    getValid() {
+      return this.state.is_valid;
+    }
 }
 
 export default alt.createStore(AuthStore, 'FacebookStore');

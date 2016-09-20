@@ -13,10 +13,11 @@ class FacebookStore {
     this.exportPublicMethods({
       getMe: this.getMe,
       getLoggedIn: this.getLoggedIn,
-      getAccessToken: this.getAccessToken,
+      getAuth: this.getAuth,
     });
 
     this.state = {
+      auth: undefined,
       me: undefined,
     };
   }
@@ -28,23 +29,25 @@ class FacebookStore {
   _handleLogin(response) {
     console.log("login or getloginstatus", response);
     this.setState({
-      me: response,
+      auth: response.auth.authResponse,
+      me: response.me,
     });
   }
 
   _handleLogout(response) {
     console.log("logout", response);
-    this.setState({ me: undefined });
+    this.setState({
+      auth: undefined,
+      me: undefined,
+    });
   }
 
   _handleVerifyToken(verified) {
     console.log('verified');
   }
 
-  getAccessToken() {
-    return window.FB.getLoginStatus((response) => {
-      return response.accessToken;
-    });
+  getAuth() {
+    return this.state.auth;
   }
 
   getMe() {
