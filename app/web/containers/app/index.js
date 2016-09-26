@@ -14,6 +14,8 @@ import {
   Navigation,
 } from 'react-toolbox';
 
+import CustomNavigation from '../../components/Navigation';
+
 //Themes
 import appBarTheme from './AppBar.scss';
 
@@ -64,14 +66,15 @@ export default class App extends React.Component {
           pinned={this.state.drawerPinned}
           permanentAt='lg'
           onOverlayClick={ this.toggleDrawerActive }>
-          <p>Navigation, account switcher, etc. go here.</p>
+          <CustomNavigation/>
         </NavDrawer>
         <Panel>
           <AppBar theme={appBarTheme}>
             <IconButton icon='menu' inverse={ true } onClick={ this.toggleDrawerActive }/>
+            <h2>MovieCircle</h2>
             <IconButton icon='search' inverse={ true } onClick={ this.toggleDrawerActive }/>
           </AppBar>
-          <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
+          <div style={{ flex: 1, overflowY: 'auto', fontSize: '24px', zIndex: 100/*, padding: '1.8rem'*/ }}>
             {this.props.children}
           </div>
         </Panel>
