@@ -1,5 +1,7 @@
 import React, { Component} from 'react';
 import { browserHistory } from 'react-router';
+import MovieActions from '../../../actions/MovieActions';
+import MovieStore from '../../../stores/MovieStore';
 
 import {
   Tab,
@@ -11,9 +13,26 @@ export default class MoviesPage extends Component {
     super(props);
     this.state = {
       index: 1,
+      movies: [],
     }
 
-    this.handleTabChange = this.handleTabChange.bind(this);
+    this.handleMovieStoreChange = this.handleMovieStoreChange.bind(this);
+    this.handleTabChange        = this.handleTabChange.bind(this);
+  }
+
+  componentDidMount() {
+    MovieStore.listen(this.handleMovieStoreChange);
+    MovieActions.getPopularMovies(2);
+  }
+
+  componentWillUnmount() {
+    MovieStore.unlisten(this.handleMovieStoreChange);
+  }
+
+  handleMovieStoreChange(state) {
+    this.setState({
+      movies: state.popular,
+    });
   }
 
   handleTabChange(i) {
@@ -22,15 +41,25 @@ export default class MoviesPage extends Component {
 
   render() {
     return (
-      <section>
-        <Tabs index={this.state.index} onChange={this.handleTabChange} inverse fixed>
-          <Tab label='Popular'><small>First Content</small></Tab>
-          <Tab label='Top Rated'><small>Second Content</small></Tab>
-          <Tab label='In Theatres'><small>Third Content</small></Tab>
-          <Tab label='Latest'><small>Disabled Content</small></Tab>
-          <Tab label='Upcoming'><small>Disabled Content</small></Tab>
-        </Tabs>
-      </section>
+      <div>
+        <div style={{overflowX: 'auto', position: 'fixed', width: '100%', zIndex: 101}}>
+          <div style={{minWidth: '410px'}}>
+            <Tabs index={this.state.index} onChange={this.handleTabChange} inverse>
+              <Tab label='Trending'></Tab>
+              <Tab label='Top Rated'></Tab>
+              <Tab label='Now Playing'></Tab>
+              <Tab label='Upcoming'></Tab>
+            </Tabs>
+          </div>
+        </div>
+        <div style={{paddingTop: '4.8rem'}}>
+          {
+            this.state.movies.map((movie) => {
+              return (<p>{movie.title}</p>);
+            })
+          }
+        </div>
+      </div>
     );
   }
 }

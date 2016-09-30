@@ -1,0 +1,22 @@
+.layout {
+  overflow: visible;
+
+  .navDrawer {
+    .drawerContent {
+      background-color: #222;
+      border-right: none;
+      position: fixed;
+    }
+  }
+
+  .panel {
+    display: block;
+    overflow: visible;
+  }
+}
+
+.appBar {
+  padding: 0 1.6rem;
+  position: fixed;
+  width: 100%;
+}

@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
 // Routes
-import Routes from './components/Routes';
+import {Routes} from './components';
 
 // Base styling
 //import './base.css';

@@ -27,4 +27,4 @@ class AuthStore {
     }
 }
 
-export default alt.createStore(AuthStore, 'FacebookStore');
+export default alt.createStore(AuthStore, 'AuthStore');

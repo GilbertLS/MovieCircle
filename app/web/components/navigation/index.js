@@ -16,10 +16,10 @@ export default class Navigation extends React.Component {
     return (
       <section>
         <List selectable ripple>
-          <ListItem caption='Discovery' leftIcon='home' />
+          <ListItem caption='Movies' leftIcon='theaters' />
           <ListDivider />
           <ListSubHeader caption='Your Lists' />
-          <ListItem caption='Liked' leftIcon='thumb_up' />
+          <ListItem caption='Favorites' leftIcon='favorite' />
           <ListItem caption='Watched' leftIcon='visibility' />
           <ListItem caption='Watch Later' leftIcon='tv' />
           <ListDivider />

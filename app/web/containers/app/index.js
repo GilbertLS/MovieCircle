@@ -11,13 +11,12 @@ import {
   Layout,
   NavDrawer,
   Panel,
-  Navigation,
 } from 'react-toolbox';
 
-import CustomNavigation from '../../components/Navigation';
+import {Navigation} from '../../components';
 
 //Themes
-import appBarTheme from './AppBar.scss';
+import theme from './theme.scss';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,7 +25,9 @@ export default class App extends React.Component {
       drawerActive: false,
     }
 
-    this.toggleDrawerActive = this.toggleDrawerActive.bind(this);
+    this.toggleDrawerActive   = this.toggleDrawerActive.bind(this);
+    this.handleFacebookChange = this.handleFacebookChange.bind(this);
+    this.handleAuthChange     = this.handleAuthChange.bind(this);
   }
 
   componentWillMount() {
@@ -34,22 +35,22 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    FacebookStore.listen(this.onFacebookChange);
-    AuthStore.listen(this.onAuthChange);
+    FacebookStore.listen(this.handleFacebookChange);
+    AuthStore.listen(this.handleAuthChange);
   }
 
   componentWillUnmount() {
-    FacebookStore.unlisten(this.onFacebookChange);
-    AuthStore.unlisten(this.onAuthChange);
+    FacebookStore.unlisten(this.handleFacebookChange);
+    AuthStore.unlisten(this.handleAuthChange);
   }
 
-  onFacebookChange(state) {
+  handleFacebookChange(state) {
     if(FacebookStore.getLoggedIn()) {
       AuthActions.verifyFacebook(FacebookStore.getAuth());
     }
   }
 
-  onAuthChange(state) {
+  handleAuthChange(state) {
 
   }
 
@@ -59,22 +60,20 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout theme={theme}>
         <NavDrawer
-          className='customDrawer' //Using this as a hack
           active={this.state.drawerActive}
           pinned={this.state.drawerPinned}
           permanentAt='lg'
           onOverlayClick={ this.toggleDrawerActive }>
-          <CustomNavigation/>
+          <Navigation/>
         </NavDrawer>
         <Panel>
-          <AppBar theme={appBarTheme}>
+          <AppBar theme={theme}>
             <IconButton icon='menu' inverse={ true } onClick={ this.toggleDrawerActive }/>
-            <h2>MovieCircle</h2>
-            <IconButton icon='search' inverse={ true } onClick={ this.toggleDrawerActive }/>
+
           </AppBar>
-          <div style={{ flex: 1, overflowY: 'auto', fontSize: '24px', zIndex: 100/*, padding: '1.8rem'*/ }}>
+          <div style={{fontSize: '24px', paddingTop: '6.4rem'}}>
             {this.props.children}
           </div>
         </Panel>
