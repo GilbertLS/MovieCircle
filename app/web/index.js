@@ -2,20 +2,31 @@
  * App entry point
  */
 
-// Libraries
+//Libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 
-// Routes
-import {Routes} from './components';
+import { App } from './components';
+import {
+  LoginPage,
+  MoviesPage,
+} from './containers';
 
-// Base styling
-//import './base.css';
+//Routes
+const routes = {
+  component: App,
+  childRoutes: [
+    { path: '/', component: MoviesPage },
+  ]
+};
 
-// Render the router
+//React Hot Loader
+if (module.hot) {
+  module.hot.accept();
+}
+
+//Render the router
 ReactDOM.render((
-  <Router history={browserHistory}>
-    {Routes}
-  </Router>
+  <Router history={browserHistory} routes={routes}/>
 ), document.getElementById('app'));

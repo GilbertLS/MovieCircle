@@ -1,5 +1,5 @@
 import React from 'react';
-import FacebookActions from '../../actions/FacebookActions';
+import FacebookActions from '../../../actions/FacebookActions';
 
 export default class FacebookLogin extends React.Component {
     constructor(props) {

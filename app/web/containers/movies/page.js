@@ -8,6 +8,12 @@ import {
   Tabs,
 } from 'react-toolbox';
 
+import {
+  MovieGrid
+} from '../../components';
+
+import theme from './theme.scss';
+
 export default class MoviesPage extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +50,7 @@ export default class MoviesPage extends Component {
       <div>
         <div style={{overflowX: 'auto', position: 'fixed', width: '100%', zIndex: 101}}>
           <div style={{minWidth: '410px'}}>
-            <Tabs index={this.state.index} onChange={this.handleTabChange} inverse>
+            <Tabs theme={theme} index={this.state.index} onChange={this.handleTabChange} inverse>
               <Tab label='Trending'></Tab>
               <Tab label='Top Rated'></Tab>
               <Tab label='Now Playing'></Tab>
@@ -53,11 +59,7 @@ export default class MoviesPage extends Component {
           </div>
         </div>
         <div style={{paddingTop: '4.8rem'}}>
-          {
-            this.state.movies.map((movie) => {
-              return (<p>{movie.title}</p>);
-            })
-          }
+          <MovieGrid movies={this.state.movies}/>
         </div>
       </div>
     );

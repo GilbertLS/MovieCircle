@@ -6,10 +6,9 @@ import {
   ListItem,
   ListSubHeader,
   ListDivider,
-  ListCheckbox
-} from 'react-toolbox/lib/list';
-
-import { Button } from 'react-toolbox';
+  ListCheckbox,
+  Button,
+} from 'react-toolbox';
 
 export default class Navigation extends React.Component {
   render() {

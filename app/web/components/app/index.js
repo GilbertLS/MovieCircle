@@ -13,9 +13,11 @@ import {
   Panel,
 } from 'react-toolbox';
 
-import {Navigation} from '../../components';
+import {
+  Navigation,
+  SearchInput,
+} from '../../components';
 
-//Themes
 import theme from './theme.scss';
 
 export default class App extends React.Component {
@@ -71,7 +73,7 @@ export default class App extends React.Component {
         <Panel>
           <AppBar theme={theme}>
             <IconButton icon='menu' inverse={ true } onClick={ this.toggleDrawerActive }/>
-
+            <SearchInput/>
           </AppBar>
           <div style={{fontSize: '24px', paddingTop: '6.4rem'}}>
             {this.props.children}
