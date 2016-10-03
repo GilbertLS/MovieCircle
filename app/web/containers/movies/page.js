@@ -13,7 +13,7 @@ import {
   MovieGrid
 } from '../../components';
 
-import theme from './theme.scss';
+import style from './style.scss';
 
 export default class MoviesPage extends Component {
   constructor(props) {
@@ -61,10 +61,10 @@ export default class MoviesPage extends Component {
             return storeOrActions.getTopRatedMovies(this.state.page);
             break;
           case 2:
-            return storeOrActions.getUpcomingMovies(this.state.page);
+            return storeOrActions.getNowPlayingMovies(this.state.page);
             break;
           case 3:
-            return storeOrActions.getNowPlayingMovies(this.state.page);
+            return storeOrActions.getUpcomingMovies(this.state.page);
             break;
           default:
             return storeOrActions.getPopularMovies(this.state.page);
@@ -108,9 +108,9 @@ export default class MoviesPage extends Component {
   render() {
     return (
       <div>
-        <div style={{overflowX: 'auto', position: 'fixed', width: '100%', zIndex: 101, marginBottom: '6px'}}>
-          <div style={{minWidth: '410px'}}>
-            <Tabs theme={theme} index={this.state.index} onChange={this.handleTabChange} inverse>
+        <div className={style.tabContainer}>
+          <div className={style.tabScroll}>
+            <Tabs index={this.state.index} onChange={this.handleTabChange} inverse>
               <Tab label='Trending'></Tab>
               <Tab label='Top Rated'></Tab>
               <Tab label='Now Playing'></Tab>
@@ -118,11 +118,11 @@ export default class MoviesPage extends Component {
             </Tabs>
           </div>
         </div>
-        <div style={{paddingTop: '4.8rem'}}>
+        <div className={style.gridContainer}>
           <MovieGrid movies={this.state.movies}/>
           {
             this.state.loading &&
-            <div style={{width: '100%', height: '100px'}}>
+            <div className={style.progressBar}>
               <ProgressBar type='circular' mode='indeterminate' multicolor />
             </div>
           }

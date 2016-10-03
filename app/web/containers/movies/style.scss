@@ -1,0 +1,19 @@
+.tabContainer {
+  overflow-x: auto;
+  position: fixed;
+  width: 100%;
+  z-index: 101;
+  margin-bottom: 6px;
+}
+
+.tabScroll {
+  min-width: 410px;
+}
+
+.gridContainer {
+  padding-top: 4.8rem;
+}
+
+.progressBar {
+  flex: 1;
+}

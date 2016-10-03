@@ -2,7 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import OnVisible from 'react-on-visible';
 
-import style from './style.css';
+import style from './style.scss';
 
 export default class moviePoster extends OnVisible {
   constructor(props) {

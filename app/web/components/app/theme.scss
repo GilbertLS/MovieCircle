@@ -1,3 +1,5 @@
+@import "~react-toolbox/lib/globals";
+
 .layout {
   overflow: visible;
 
@@ -19,4 +21,12 @@
   padding: 0 1.6rem;
   position: fixed;
   width: 100%;
+
+  @media screen and (max-width: $layout-breakpoint-xxs) and (orientation: portrait) {
+    height: 6.4rem;
+  }
+
+  @media screen and (max-width: $layout-breakpoint-xs) and (orientation: landscape) {
+    height: 6.4rem;
+  }
 }

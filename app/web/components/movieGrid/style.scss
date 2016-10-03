@@ -1,6 +1,5 @@
-.moviePoster {
-  width: 300px;
-  height: 400px;
-  float: left;
-  background-size: cover;
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
