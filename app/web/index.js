@@ -11,6 +11,8 @@ import { App } from './components';
 import {
   LoginPage,
   MoviesPage,
+  MoviePage,
+  SearchPage,
 } from './containers';
 
 //Routes
@@ -18,6 +20,8 @@ const routes = {
   component: App,
   childRoutes: [
     { path: '/', component: MoviesPage },
+    { path: '/movie/:id', component: MoviePage},
+    { path: '/search/:query', component: SearchPage},
   ]
 };
 

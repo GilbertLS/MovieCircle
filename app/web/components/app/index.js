@@ -57,7 +57,7 @@ export default class App extends React.Component {
   }
 
   toggleDrawerActive() {
-    this.setState({ drawerActive: !this.state.drawerActive });
+    this.setState({drawerActive: !this.state.drawerActive});
   };
 
   render() {
@@ -67,12 +67,12 @@ export default class App extends React.Component {
           active={this.state.drawerActive}
           pinned={this.state.drawerPinned}
           permanentAt='lg'
-          onOverlayClick={ this.toggleDrawerActive }>
+          onOverlayClick={this.toggleDrawerActive}>
           <Navigation/>
         </NavDrawer>
         <Panel>
           <AppBar theme={theme}>
-            <IconButton icon='menu' inverse={ true } onClick={ this.toggleDrawerActive }/>
+            <IconButton icon='menu' inverse={ true } onClick={this.toggleDrawerActive}/>
             <SearchInput/>
           </AppBar>
           <div style={{fontSize: '24px', paddingTop: '6.4rem'}}>
