@@ -29,5 +29,8 @@ export default {
   },
   searchMovies(query, page, callback) {
     getMovies('/search/movie?query=' + query + '&page=' + page, callback);
+  },
+  getMovieInfo(id, callback) {
+    getMovies('/movie/' + id, callback);
   }
 }

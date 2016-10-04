@@ -4,7 +4,7 @@ import MovieInfoActions from '../actions/MovieActions';
 class MovieInfoStore {
   constructor() {
     this.bindListeners({
-
+      //_handleGetMovieInfo: MovieInfoActions.GET_MOVIE_INFO,
     });
 
     this.exportPublicMethods({
@@ -12,8 +12,12 @@ class MovieInfoStore {
     });
 
     this.state = {
-      movies: [],
+      movies: {},
     };
+  }
+
+  _handleGetMovieInfo(response) {
+
   }
 }
 

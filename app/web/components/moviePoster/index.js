@@ -7,10 +7,18 @@ import style from './style.scss';
 export default class moviePoster extends OnVisible {
   constructor(props) {
     super(props);
+
+    this.state = {
+      loaded: false,
+    }
+
+    this.handleImageOnLoad = this.handleImageOnLoad.bind(this);
   }
 
   handleImageOnLoad(a) {
-    //a.target.className = 'loaded';
+    this.setState({
+      loaded: true,
+    });
   }
 
   handleOnClick(id) {
@@ -29,7 +37,7 @@ export default class moviePoster extends OnVisible {
         <img
           onLoad={this.handleImageOnLoad}
           src={'https://image.tmdb.org/t/p/w342/' + this.props.movie.poster_path}
-          className={style.image}/>
+          className={this.state.loaded ? style.loaded : style.image}/>
       }
       </div>
     );

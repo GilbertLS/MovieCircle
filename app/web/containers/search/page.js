@@ -15,6 +15,7 @@ export default class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      query: this.props.params.query,
       index: 0,
       movies: [],
       page: 1,
@@ -22,14 +23,24 @@ export default class SearchPage extends Component {
     }
 
     this.handleSearchStoreChange = this.handleSearchStoreChange.bind(this);
-    this.handleScroll           = this.handleScroll.bind(this);
+    this.handleScroll            = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     SearchStore.listen(this.handleSearchStoreChange);
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.handleScroll);
-    SearchActions.clearMovies(); //Clear the search store, which then get movies
+    SearchActions.clearMovies();
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      query: props.params.query,
+      index: 0,
+      movies: [],
+      page: 1,
+      loading: false
+    });
   }
 
   componentWillUnmount() {
@@ -41,7 +52,7 @@ export default class SearchPage extends Component {
   componentDidUpdate() {
     if(this.state.movies && this.state.movies.length == 0) {
       console.log('update');
-      this.getMovies();
+      SearchActions.clearMovies();
     }
   }
 
@@ -59,8 +70,7 @@ export default class SearchPage extends Component {
         loading: false,
       })
     } else if(!this.state.loading) {
-      console.log('getMovies loading');
-      SearchActions.searchMovies(this.props.params.query, this.state.page)
+      SearchActions.searchMovies(this.state.query, this.state.page)
       this.setState({
         loading: true,
       });

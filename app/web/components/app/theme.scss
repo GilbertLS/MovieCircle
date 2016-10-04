@@ -12,15 +12,22 @@
   }
 
   .panel {
+    position: relative;
     display: block;
     overflow: visible;
+    width: 100%;
   }
 }
 
 .appBar {
   padding: 0 1.6rem;
   position: fixed;
-  width: 100%;
+  left: 0;
+  right: 0;
+
+  @media screen and (min-width: $layout-breakpoint-lg) {
+    left: 32rem;
+  }
 
   @media screen and (max-width: $layout-breakpoint-xxs) and (orientation: portrait) {
     height: 6.4rem;

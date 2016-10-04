@@ -1,8 +1,43 @@
 .container {
+  position: relative;
   background-color: rgba(0,0,0,0.3);
   border-radius: 2px;
+  width: 40%;
   height: 3.4rem;
-  font-size: 18px;
-  padding: 5px 24px;
+  padding: 0.5rem 0 0.5rem 6rem;
   justify-content: center;
+  cursor: text;
+  margin: auto;
+}
+
+.containerSelected {
+  @extend .container;
+  background-color: white;
+}
+
+.input {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  padding-bottom: 0.2rem;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1.8rem;
+}
+
+.inputSelected {
+  @extend .input;
+  color: black;
+}
+
+.icon {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  pointer-events: none;
+}
+
+.iconSelected {
+  @extend .icon;
+  color: black;
 }
