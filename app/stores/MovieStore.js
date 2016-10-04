@@ -49,8 +49,6 @@ class MovieStore {
     });
   }
 
-
-
   getPopularMovies(page) {
     if(page && page > 0) {
       return this.state.popular[page-1];

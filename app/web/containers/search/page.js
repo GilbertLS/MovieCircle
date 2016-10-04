@@ -39,7 +39,8 @@ export default class SearchPage extends Component {
       index: 0,
       movies: [],
       page: 1,
-      loading: false
+      loading: false,
+      end: false,
     });
   }
 
@@ -51,7 +52,6 @@ export default class SearchPage extends Component {
 
   componentDidUpdate() {
     if(this.state.movies && this.state.movies.length == 0) {
-      console.log('update');
       SearchActions.clearMovies();
     }
   }
@@ -62,14 +62,24 @@ export default class SearchPage extends Component {
 
   getMovies() {
     const currentPage = SearchStore.getSearch(this.state.page);
-
     if(currentPage && currentPage.length > 0) {
+      //Page has movies in it
+      //So we display it
       this.setState({
         page: this.state.page + 1,
         movies: this.state.movies.concat(currentPage),
         loading: false,
-      })
+      });
+    } else if (currentPage){
+      //Page is empty
+      //Do not get anymore movies
+      this.setState({
+        loading: false,
+        end: true,
+      });
     } else if(!this.state.loading) {
+      //Page does not exist yet
+      //Perform action to get page
       SearchActions.searchMovies(this.state.query, this.state.page)
       this.setState({
         loading: true,
@@ -80,7 +90,7 @@ export default class SearchPage extends Component {
   handleScroll() {
     const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
     const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-    if (!this.state.loading && (scrollTop + window.innerHeight) >= scrollHeight) {
+    if (!this.state.loading && !this.state.end && (scrollTop + window.innerHeight) >= scrollHeight) {
       this.getMovies();
     }
   }
