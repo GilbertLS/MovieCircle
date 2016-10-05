@@ -7,47 +7,6 @@
   top: -50px;
 }
 
-.ribbon {
-  background-color: red;
-  position: relative;
-}
-
-.ribbonContainer {
-  box-sizing: border-box;
-  display: flex;
-  margin: auto;
-  max-width: 1000px;
-  padding: 1.6rem 1.6rem 1.6rem 1.6rem;
-
-  .left {
-    width: 30%;
-    position: relative;
-  }
-
-  span {
-    font-size: 2rem;
-    font-weight: 500;
-    color: white;
-  }
-}
-
-.ribbonContainerLeft {
-  width: 30%;
-  position: relative;
-}
-
-.ribbonContainerRight {
-  box-sizing: border-box;
-  padding-left: 1.6rem;
-  width: 70%;
-}
-
-.poster {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-}
-
 .firstCard {
   margin: auto;
   max-width: 1000px;

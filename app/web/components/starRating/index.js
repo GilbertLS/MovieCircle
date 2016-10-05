@@ -31,8 +31,7 @@ export default class StarRating extends React.Component {
     return (
       <div>
         {
-          this.props.rating &&
-          stars
+          this.props.rating ? stars : ''
         }
       </div>
     );
