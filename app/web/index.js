@@ -20,8 +20,9 @@ const routes = {
   component: App,
   childRoutes: [
     { path: '/', component: MoviesPage },
-    { path: '/movie/:id', component: MoviePage},
-    { path: '/search/:query', component: SearchPage},
+    { path: '/:index', component: MoviesPage },
+    { path: '/movie/:id', component: MoviePage },
+    { path: '/search/:query', component: SearchPage },
   ]
 };
 

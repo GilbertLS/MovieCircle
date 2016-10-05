@@ -37,3 +37,19 @@
     height: 6.4rem;
   }
 }
+
+.toggle {
+  height: 4.1rem;
+  width: 4.1rem;
+  position: absolute;
+  top: 1.1rem;
+  left: 1.1rem;
+
+  @media screen and (min-width: $layout-breakpoint-lg) {
+    visibility: hidden;
+  }
+
+  .icon {
+    font-size: 2.4rem;
+  }
+}

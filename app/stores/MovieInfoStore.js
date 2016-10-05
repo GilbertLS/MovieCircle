@@ -1,10 +1,11 @@
 import alt from '../alt';
-import MovieInfoActions from '../actions/MovieActions';
+import MovieInfoActions from '../actions/MovieInfoActions';
 
 class MovieInfoStore {
   constructor() {
     this.bindListeners({
-      //_handleGetMovieInfo: MovieInfoActions.GET_MOVIE_INFO,
+      _handleGetMovieInfo: MovieInfoActions.GET_MOVIE_INFO,
+      _handleClearMovieInfo: MovieInfoActions.CLEAR_MOVIE_INFO,
     });
 
     this.exportPublicMethods({
@@ -12,12 +13,28 @@ class MovieInfoStore {
     });
 
     this.state = {
-      movies: {},
+      movie: undefined,
+      videos: undefined,
+      credits: undefined,
+      recommended: undefined,
+      images: undefined,
     };
   }
 
   _handleGetMovieInfo(response) {
+    this.setState({
+      movie: response,
+    });
+  }
 
+  _handleClearMovieInfo() {
+    this.setState({
+      movie: undefined,
+      videos: undefined,
+      credits: undefined,
+      recommended: undefined,
+      images: undefined,
+    });
   }
 }
 

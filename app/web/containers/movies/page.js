@@ -18,8 +18,10 @@ import style from './style.scss';
 export default class MoviesPage extends Component {
   constructor(props) {
     super(props);
+    let index = parseInt(props.params.index);
+
     this.state = {
-      index: 0,
+      index: (Number.isInteger(index)) ? index : 0,
       movies: [],
       page: 1,
       loading: false,
@@ -105,6 +107,7 @@ export default class MoviesPage extends Component {
       movies: [],
       loading: false,
     });
+    browserHistory.replace('/' + i);
   }
 
   handleScroll() {

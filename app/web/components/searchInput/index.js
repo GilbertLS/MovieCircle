@@ -40,6 +40,7 @@ export default class SearchInput extends React.Component {
     return (
       <div className={this.state.selected ? style.containerSelected : style.container}
            onClick={this.handleOnClick}
+           onFocus={this.handleOnClick}
            onBlur={this.handleOnBlur}>
         <div className={this.state.selected ? style.iconSelected : style.icon}>
           <span className='material-icons' >search</span>

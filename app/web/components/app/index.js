@@ -72,10 +72,10 @@ export default class App extends React.Component {
         </NavDrawer>
         <Panel>
           <AppBar theme={theme}>
-            <IconButton icon='menu' inverse={ true } onClick={this.toggleDrawerActive}/>
+            <IconButton theme={theme} icon='menu' inverse={ true } onClick={this.toggleDrawerActive}/>
             <SearchInput/>
           </AppBar>
-          <div style={{fontSize: '24px', paddingTop: '6.4rem'}}>
+          <div style={{paddingTop: '6.4rem'}}>
             {this.props.children}
           </div>
         </Panel>
