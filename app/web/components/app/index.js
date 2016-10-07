@@ -19,6 +19,7 @@ import {
 } from '../../components';
 
 import theme from './theme.scss';
+import style from './style.scss';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -75,7 +76,7 @@ export default class App extends React.Component {
             <IconButton theme={theme} icon='menu' inverse={ true } onClick={this.toggleDrawerActive}/>
             <SearchInput/>
           </AppBar>
-          <div style={{paddingTop: '6.4rem'}}>
+          <div className={style.childContainer}>
             {this.props.children}
           </div>
         </Panel>

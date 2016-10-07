@@ -101,8 +101,8 @@ export default class SearchPage extends Component {
       <MovieGrid movies={this.state.movies}/>
       {
         this.state.loading &&
-        <div style={{width: '100%', height: '100px'}}>
-        <ProgressBar type='circular' mode='indeterminate' multicolor />
+        <div className={style.progressBar}>
+          <ProgressBar type='circular' mode='indeterminate' multicolor />
         </div>
       }
       </div>
