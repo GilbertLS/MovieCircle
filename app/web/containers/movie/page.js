@@ -9,7 +9,12 @@ import {
   CardTitle,
   CardText,
   ProgressBar,
+  Button,
 } from 'react-toolbox';
+
+import {
+  YoutubePlayer,
+} from '../../components';
 
 import {
   Ribbon,
@@ -20,13 +25,11 @@ export default class MoviePage extends Component {
     super(props);
     this.state = {
       movie: undefined,
-      videos: undefined,
-      credits: undefined,
-      recommended: undefined,
-      images: undefined,
+      trailerVisible: false,
     }
 
     this.handleMovieInfoStoreChange = this.handleMovieInfoStoreChange.bind(this);
+    this.handleOnClickTrailer = this.handleOnClickTrailer.bind(this);
   }
 
   componentDidMount() {
@@ -41,20 +44,18 @@ export default class MoviePage extends Component {
   handleMovieInfoStoreChange(store) {
     this.setState({
       movie: store.movie,
-      videos: store.videos,
-      credits: store.credits,
-      recommended: store.recommended,
-      images: store.images,
     });
-    console.log(store);
 
-    this.getMissing();
-  }
-
-  getMissing() {
     if(!this.state.movie) {
       MovieInfoActions.getMovieInfo(this.props.params.id);
     }
+  }
+
+  handleOnClickTrailer() {
+    console.log('hel')
+    this.setState({
+      trailerVisible: !this.state.trailerVisible,
+    });
   }
 
   render() {
@@ -63,8 +64,9 @@ export default class MoviePage extends Component {
     return (
       <div>
       {
-        movie &&
+        !!movie &&
         <div>
+          <YoutubePlayer youtubeKey='GLPJSmUHZvU' visible={this.state.trailerVisible}/>
           <div className={style.backdrop}
                style={{
                  background: 'url(http://image.tmdb.org/t/p/w1280/' + movie.backdrop_path + ')',
@@ -75,6 +77,7 @@ export default class MoviePage extends Component {
           </div>
           <Ribbon movie={movie}/>
           <Card className={style.firstCard}>
+            <Button label={'Play Trailer'} onClick={this.handleOnClickTrailer} flat primary/>
             <CardTitle subtitle={movie.tagline}/>
             <CardText>{movie.overview}</CardText>
           </Card>

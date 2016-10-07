@@ -28,7 +28,7 @@ export default class Ribbon extends React.Component {
 
     //Delete canvas that stays after error
     //Keeping this in case
-    const canvases = document.getElementsByTagName('canvas');
+    const canvases = document.body.getElementsByTagName('canvas');
     for(var i = 0; i < canvases.length; i++) {
       document.body.removeChild(canvases[i]);
     }
@@ -50,17 +50,17 @@ export default class Ribbon extends React.Component {
                    crossOrigin='anonymous'/>
             </div>
             <div className={style.ribbonContainerRight}>
-              <span>{movie.title}</span>
-              <span> {movie.release_date.substring(0, 4)}</span>
+              <span className={style.title}>{movie.title}</span>
+              <span className={style.year}> ({movie.release_date.substring(0, 4)})</span>
               <StarRating rating={movie.vote_average}/>
-              <span>
+              <span className={style.genres}>
                 {
                   movie.genres.map((genre) => {
                     return genre.name;
                   }).join(', ')
                 }
               </span>
-              <span>
+              <span className={style.runtime}>
                 {movie.runtime + ' minutes'}
               </span>
             </div>

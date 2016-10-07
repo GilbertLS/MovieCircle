@@ -14,10 +14,6 @@ class MovieInfoStore {
 
     this.state = {
       movie: undefined,
-      videos: undefined,
-      credits: undefined,
-      recommended: undefined,
-      images: undefined,
     };
   }
 
@@ -30,10 +26,6 @@ class MovieInfoStore {
   _handleClearMovieInfo() {
     this.setState({
       movie: undefined,
-      videos: undefined,
-      credits: undefined,
-      recommended: undefined,
-      images: undefined,
     });
   }
 }

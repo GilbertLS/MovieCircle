@@ -1,4 +1,4 @@
-const URL = 'http://192.168.1.126:3001/movieapi';
+const URL = 'http://localhost:3001/movieapi';
 
 const getMovies = (path, callback) => {
   fetch(URL, {
@@ -31,6 +31,6 @@ export default {
     getMovies('/search/movie?query=' + query + '&page=' + page, callback);
   },
   getMovieInfo(id, callback) {
-    getMovies('/movie/' + id, callback);
+    getMovies('/movie/' + id + '?append_to_response=videos,recommendations,credits', callback);
   }
 }

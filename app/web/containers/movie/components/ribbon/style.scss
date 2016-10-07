@@ -9,11 +9,23 @@
   margin: auto;
   max-width: 1000px;
   padding: 1.6rem 1.6rem 1.6rem 1.6rem;
+  color: white;
 
-  span {
+  .title {
     font-size: 2rem;
     font-weight: 500;
-    color: white;
+  }
+
+  .year {
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+
+  .genres, .runtime {
+    font-size: 1.4rem;
+    font-weight: 400;
+    display: block;
+    color: rgba(255,255,255,0.6);
   }
 }
 
