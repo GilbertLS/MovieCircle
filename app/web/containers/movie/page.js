@@ -72,7 +72,7 @@ export default class MoviePage extends Component {
                  background: 'url(http://image.tmdb.org/t/p/w1280/' + movie.backdrop_path + ')',
                  backgroundRepeat: 'no-repeat',
                  backgroundSize: 'cover',
-                 backgroundPosition: 'center',
+                 backgroundPosition: 'center top',
                }}>
           </div>
           <Ribbon movie={movie}/>

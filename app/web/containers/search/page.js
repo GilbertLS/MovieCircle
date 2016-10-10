@@ -11,6 +11,8 @@ import {
   MovieGrid
 } from '../../components';
 
+import style from './style.scss';
+
 export default class SearchPage extends Component {
   constructor(props) {
     super(props);

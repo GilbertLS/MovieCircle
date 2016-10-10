@@ -16,6 +16,7 @@ import {
 import {
   Navigation,
   SearchInput,
+  LoginComponent,
 } from '../../components';
 
 import theme from './theme.scss';
@@ -48,9 +49,7 @@ export default class App extends React.Component {
   }
 
   handleFacebookChange(state) {
-    if(FacebookStore.getLoggedIn()) {
-      AuthActions.verifyFacebook(FacebookStore.getAuth());
-    }
+
   }
 
   handleAuthChange(state) {
@@ -69,6 +68,7 @@ export default class App extends React.Component {
           pinned={this.state.drawerPinned}
           permanentAt='lg'
           onOverlayClick={this.toggleDrawerActive}>
+          <LoginComponent/>
           <Navigation/>
         </NavDrawer>
         <Panel>

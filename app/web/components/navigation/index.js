@@ -8,6 +8,8 @@ import {
   ListDivider,
 } from 'react-toolbox';
 
+import style from './style.scss';
+
 const paths = {
   movies: '/',
 }
@@ -19,7 +21,7 @@ export default class Navigation extends React.Component {
 
   render() {
     return (
-      <section>
+      <nav className={style.container}>
         <List selectable ripple>
           <ListItem caption='Movies' leftIcon='theaters' onClick={() => {this.handleOnClick(paths.movies)}}/>
           <ListDivider />
@@ -30,7 +32,7 @@ export default class Navigation extends React.Component {
           <ListDivider />
           <ListItem caption='Settings' leftIcon='settings' />
         </List>
-      </section>
+      </nav>
     );
   }
 }

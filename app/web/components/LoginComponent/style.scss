@@ -1,0 +1,12 @@
+.container {
+  min-height: 100px;
+  background-color: $color-primary-dark;
+}
+
+.avatar {
+  background-color: $color-accent;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 4rem;
+}
