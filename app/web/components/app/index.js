@@ -27,6 +27,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       drawerActive: false,
+      isLoggedIn: AuthStore.getLoggedIn(),
     }
 
     this.toggleDrawerActive   = this.toggleDrawerActive.bind(this);
@@ -49,11 +50,14 @@ export default class App extends React.Component {
   }
 
   handleFacebookChange(state) {
-
+    AuthActions.loginFacebook(FacebookStore.getAuth());
   }
 
   handleAuthChange(state) {
-
+    console.log(AuthStore.getLoggedIn());
+    this.setState({
+      isLoggedIn: AuthStore.getLoggedIn()
+    });
   }
 
   toggleDrawerActive() {
@@ -73,11 +77,17 @@ export default class App extends React.Component {
         </NavDrawer>
         <Panel>
           <AppBar theme={theme}>
-            <IconButton theme={theme} icon='menu' inverse={ true } onClick={this.toggleDrawerActive}/>
+            <IconButton
+              theme={theme}
+              icon='menu'
+              inverse={ true }
+              onClick={this.toggleDrawerActive}/>
             <SearchInput/>
           </AppBar>
           <div className={style.childContainer}>
-            {this.props.children}
+          {this.props.children && React.cloneElement(this.props.children, {
+            isLoggedIn: this.state.isLoggedIn
+          })}
           </div>
         </Panel>
       </Layout>

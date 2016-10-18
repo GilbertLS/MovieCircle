@@ -2,9 +2,9 @@ import alt from '../alt';
 import LoginAPI from '../api/LoginAPI';
 
 class AuthActions {
-  verifyFacebook(authObject) {
+  loginFacebook(authObject) {
     return (dispatch) => {
-      LoginAPI.verifyFacebook(authObject, (response) => {
+      LoginAPI.loginFacebook(authObject, (response) => {
         if(response.status == 200) {
           dispatch(response);
         } else {

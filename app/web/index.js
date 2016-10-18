@@ -7,12 +7,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 
-import { App } from './components';
+import {
+  App,
+  AuthComponent,
+} from './components';
 import {
   LoginPage,
   MoviesPage,
   MoviePage,
   SearchPage,
+  FavoritesPage,
 } from './containers';
 
 //Routes
@@ -20,9 +24,16 @@ const routes = {
   component: App,
   childRoutes: [
     { path: '/', component: MoviesPage },
-    { path: '/:index', component: MoviesPage },
+    { path: '/movies/:index', component: MoviesPage },
     { path: '/movie/:id', component: MoviePage },
     { path: '/search/:query', component: SearchPage },
+    {
+      path: '/u',
+      component: AuthComponent,
+      childRoutes: [
+        { path: '/u/favorites', component: FavoritesPage },
+      ]
+    },
   ]
 };
 

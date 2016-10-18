@@ -4,26 +4,26 @@ import AuthActions from '../actions/AuthActions';
 class AuthStore {
   constructor() {
     this.bindListeners({
-      _handleVerifyFacebook: AuthActions.VERIFY_FACEBOOK,
+      _handleVerifyFacebook: AuthActions.LOGIN_FACEBOOK,
     });
 
     this.exportPublicMethods({
-      getValid: this.getValid,
+      getLoggedIn: this.getLoggedIn,
     });
 
     this.state = {
-      is_valid: false,
+      isLoggedIn: false,
     };
   }
 
     _handleVerifyFacebook(response) {
       this.setState({
-        is_valid: response.is_valid,
+        isLoggedIn: (response.status == 200 || response.status == 201) ? true : false,
       });
     }
 
-    getValid() {
-      return this.state.is_valid;
+    getLoggedIn() {
+      return this.state.isLoggedIn;
     }
 }
 

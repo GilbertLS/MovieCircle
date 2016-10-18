@@ -52,7 +52,6 @@ export default class MoviePage extends Component {
   }
 
   handleOnClickTrailer() {
-    console.log('hel')
     this.setState({
       trailerVisible: !this.state.trailerVisible,
     });

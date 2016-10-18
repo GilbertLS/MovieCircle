@@ -1,14 +1,13 @@
 const URL = 'http://localhost:3001/api/';
 
 export default {
-  verifyFacebook(authObject, callback) {
-    fetch(URL + 'verifyfacebook', {
+  loginFacebook(authObject, callback) {
+    fetch(URL + 'login', {
       method: 'GET',
       headers: {
         "Authorization": authObject.accessToken,
       },
     })
-    .then((response) => {return response.json()})
     .then((response) => {
       callback(response);
     });
