@@ -6,7 +6,6 @@ import style from './style.scss';
 
 import {
   Card,
-  ProgressBar,
   Button,
   Tooltip,
 } from 'react-toolbox';
@@ -21,6 +20,7 @@ import {
 
 import {
   MovieGrid,
+  PageLoader,
 } from '../../components/';
 
 const TooltipButton = Tooltip(Button);
@@ -104,7 +104,7 @@ export default class MoviePage extends Component {
       }
       {
         !movie &&
-        <ProgressBar type='circular' mode='indeterminate' multicolor />
+        <PageLoader/>
       }
       </div>
     );

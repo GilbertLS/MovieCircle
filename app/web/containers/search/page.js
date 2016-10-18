@@ -4,14 +4,9 @@ import SearchActions from '../../../actions/SearchActions';
 import SearchStore from '../../../stores/SearchStore';
 
 import {
-  ProgressBar,
-} from 'react-toolbox';
-
-import {
-  MovieGrid
+  MovieGrid,
+  PageLoader,
 } from '../../components';
-
-import style from './style.scss';
 
 export default class SearchPage extends Component {
   constructor(props) {
@@ -103,9 +98,7 @@ export default class SearchPage extends Component {
       <MovieGrid movies={this.state.movies}/>
       {
         this.state.loading &&
-        <div className={style.progressBar}>
-          <ProgressBar type='circular' mode='indeterminate' multicolor />
-        </div>
+        <PageLoader/>
       }
       </div>
     );
