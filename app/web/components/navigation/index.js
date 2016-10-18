@@ -54,11 +54,11 @@ export default class Navigation extends React.Component {
           <ListItem caption='Movies' leftIcon='theaters' onClick={() => {this.handleOnClick(paths.movies)}}/>
           <ListDivider />
           <ListSubHeader caption='Your Lists' />
-          <ListItem caption='Favorites' leftIcon='favorite' onClick={() => {this.handleOnClick(paths.favorites)}/>
-          <ListItem caption='Watched' leftIcon='visibility' onClick={() => {this.handleOnClick(paths.watched)}/>
-          <ListItem caption='Watch Later' leftIcon='schedule' onClick={() => {this.handleOnClick(paths.watchLater)}/>
+          <ListItem caption='Favorites' leftIcon='favorite' onClick={() => {this.handleOnClick(paths.favorites)}}/>
+          <ListItem caption='Watched' leftIcon='visibility' onClick={() => {this.handleOnClick(paths.watched)}}/>
+          <ListItem caption='Watch Later' leftIcon='schedule' onClick={() => {this.handleOnClick(paths.watchLater)}}/>
           <ListDivider />
-          <ListItem caption='Settings' leftIcon='settings' onClick={() => {this.handleOnClick(paths.settings)}/>
+          <ListItem caption='Settings' leftIcon='settings' onClick={() => {this.handleOnClick(paths.settings)}}/>
           <ListItem caption='About' leftIcon='help' onClick={() => {this.handleAboutOnClick()}}/>
         </List>
         <Dialog
