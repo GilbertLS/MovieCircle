@@ -1,24 +1,32 @@
 import React from 'react';
+import FacebookActions from '../../../actions/FacebookActions';
 
 import {
   Avatar,
   Button,
 } from 'react-toolbox';
 
-import style from './style.scss';
+import theme from './theme.scss';
 
 export default class LoginComponent extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  didClickFacebookLoginButton(e) {
+    FacebookActions.login();
+  }
+
   render() {
     return (
-      <div className={style.container}>
-        <Avatar className={style.avatar}>
-          <span className='material-icons'>person</span>
-        </Avatar>
-        <Button style={{backgroundColor: '#4267B2', color: 'white'}}label='SIGN IN WITH FACEBOOK'/>
+      <div>
+        {
+          !this.props.isLoggedIn &&
+          <Button
+            theme={theme}
+            label='SIGN IN WITH FACEBOOK'
+            onClick={this.didClickFacebookLoginButton}/>
+        }
       </div>
     );
   }

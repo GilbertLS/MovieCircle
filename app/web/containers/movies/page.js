@@ -107,7 +107,7 @@ export default class MoviesPage extends Component {
       movies: [],
       loading: false,
     });
-    browserHistory.replace('/movies/' + i);
+    browserHistory.replace('/' + i);
   }
 
   handleScroll() {

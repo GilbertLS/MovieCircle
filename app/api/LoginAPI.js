@@ -1,4 +1,4 @@
-const URL = 'http://localhost:3001/api/';
+const URL = 'http://192.168.1.126:3001/api/';
 
 export default {
   loginFacebook(authObject, callback) {

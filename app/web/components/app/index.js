@@ -72,8 +72,8 @@ export default class App extends React.Component {
           pinned={this.state.drawerPinned}
           permanentAt='lg'
           onOverlayClick={this.toggleDrawerActive}>
-          <LoginComponent/>
-          <Navigation/>
+          <LoginComponent isLoggedIn={this.state.isLoggedIn}/>
+          <Navigation isLoggedIn={this.state.isLoggedIn}/>
         </NavDrawer>
         <Panel>
           <AppBar theme={theme}>
