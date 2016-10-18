@@ -1,0 +1,43 @@
+.backdrop {
+  height: 600px;
+  width: 100%;
+  opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  @media (max-width: 800px) {
+    height: 400px;
+  }
+  @media (max-width: 600px) {
+    height: 300px;
+  }
+
+  .backdropContainer {
+    max-width: 1000px;
+    flex: 1;
+    height: 100%;
+    position: relative;
+  }
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+
+  &.loaded {
+    opacity: 0.9;
+    -moz-transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+  }
+}
+
+.hidden {
+  display: none;
+}

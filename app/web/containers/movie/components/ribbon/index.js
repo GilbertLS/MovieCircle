@@ -11,44 +11,36 @@ export default class Ribbon extends React.Component {
     super(props);
 
     this.state = {
-      vibrant: '#222',
+      loaded: false,
     }
 
     this.handleOnLoad = this.handleOnLoad.bind(this);
   }
 
-  handleOnLoad(e) {
-    //This is very hacky
-    //Vibrant is loaded in index.html
-    //Do not use https for poster, causes error
-    const vibrant = new Vibrant(e.target);
+  handleOnLoad() {
     this.setState({
-      vibrant: vibrant.DarkVibrantSwatch.getHex() || '#222'
+      loaded: true,
     });
-
-    //Delete canvas that stays after error
-    //Keeping this in case
-    const canvases = document.body.getElementsByTagName('canvas');
-    for(var i = 0; i < canvases.length; i++) {
-      document.body.removeChild(canvases[i]);
-    }
   }
 
   render() {
     const movie = this.props.movie;
+    const imageClasses = (!!this.state.loaded) ? style.poster + ' ' + style.loaded : style.poster;
 
     return(
-      <div className={style.ribbon} style={{backgroundColor: this.state.vibrant}}>
+      <div className={style.ribbon}>
         {
           movie &&
           <div className={style.ribbonContainer}>
-            <div className={style.ribbonContainerLeft}>
-              <img className={style.poster}
-                   src={'http://image.tmdb.org/t/p/w342/' + movie.poster_path}
-                   onLoad={this.handleOnLoad}
-                   ref='poster'
-                   crossOrigin='anonymous'/>
-            </div>
+            {
+              !!movie.poster_path &&
+              <div className={style.ribbonContainerLeft}>
+                <img
+                  onLoad={this.handleOnLoad}
+                  className={imageClasses}
+                  src={'http://image.tmdb.org/t/p/w342/' + movie.poster_path}/>
+              </div>
+            }
             <div className={style.ribbonContainerRight}>
               <span className={style.title}>{movie.title}</span>
               <span className={style.year}> ({movie.release_date.substring(0, 4)})</span>

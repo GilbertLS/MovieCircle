@@ -12,7 +12,7 @@ export default class MovieGrid extends React.Component {
   render() {
 
     return (
-      <div className={style.grid}>
+      <div className={style.grid + ' ' + this.props.className}>
         {
           this.props.movies &&
           this.props.movies.map((movie) => {

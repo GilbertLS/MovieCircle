@@ -1,4 +1,4 @@
-const URL = 'http://localhost:3001/movieapi';
+const URL = 'http://192.168.1.126:3001/movieapi';
 
 const getMovies = (path, callback) => {
   fetch(URL, {

@@ -14,10 +14,6 @@ class MovieInfoActions {
       });
     }
   }
-  
-  clearMovieInfo() {
-    return true;
-  }
 }
 
 export default alt.createActions(MovieInfoActions);

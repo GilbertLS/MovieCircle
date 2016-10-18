@@ -1,25 +1,34 @@
-.backdrop {
-  height: 600px;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0.9;
-  top: -50px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.firstCard {
-  margin: auto;
+.content {
   max-width: 1000px;
-  top: -200px;
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  color: white;
+  width: 100%;
 }
 
-@media (max-width: 800px) {
-  .backdrop {
-    height: 400px;
-  }
+.sectionTitle {
+  padding: 2rem 0 1rem 2rem;
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
 }
-@media (max-width: 600px) {
-  .backdrop {
-    height: 300px;
+
+.buttonContainer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+
+  & > * {
+    margin-right: 1rem;
   }
 }

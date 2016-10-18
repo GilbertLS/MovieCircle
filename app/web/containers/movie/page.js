@@ -6,35 +6,51 @@ import style from './style.scss';
 
 import {
   Card,
-  CardTitle,
-  CardText,
   ProgressBar,
   Button,
+  Tooltip,
 } from 'react-toolbox';
 
 import {
-  YoutubePlayer,
-} from '../../components';
+  Ribbon,
+  Cast,
+  Overview,
+  Recommendations,
+  Backdrop,
+} from './components';
 
 import {
-  Ribbon,
-} from './components';
+  MovieGrid,
+} from '../../components/';
+
+const TooltipButton = Tooltip(Button);
 
 export default class MoviePage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      id: this.props.params.id,
       movie: undefined,
-      trailerVisible: false,
     }
 
     this.handleMovieInfoStoreChange = this.handleMovieInfoStoreChange.bind(this);
-    this.handleOnClickTrailer = this.handleOnClickTrailer.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //If the movie id param has changed load new movie
+    if(nextProps.params.id != this.state.id) {
+      this.setState({
+        id: nextProps.params.id,
+        movie: undefined,
+      });
+      MovieInfoActions.getMovieInfo(nextProps.params.id);
+    }
   }
 
   componentDidMount() {
     MovieInfoStore.listen(this.handleMovieInfoStoreChange);
-    MovieInfoActions.clearMovieInfo();
+    MovieInfoActions.getMovieInfo(this.state.id);
   }
 
   componentWillUnmount() {
@@ -45,16 +61,6 @@ export default class MoviePage extends Component {
     this.setState({
       movie: store.movie,
     });
-
-    if(!this.state.movie) {
-      MovieInfoActions.getMovieInfo(this.props.params.id);
-    }
-  }
-
-  handleOnClickTrailer() {
-    this.setState({
-      trailerVisible: !this.state.trailerVisible,
-    });
   }
 
   render() {
@@ -64,22 +70,36 @@ export default class MoviePage extends Component {
       <div>
       {
         !!movie &&
-        <div>
-          <YoutubePlayer youtubeKey='GLPJSmUHZvU' visible={this.state.trailerVisible}/>
-          <div className={style.backdrop}
-               style={{
-                 background: 'url(http://image.tmdb.org/t/p/w1280/' + movie.backdrop_path + ')',
-                 backgroundRepeat: 'no-repeat',
-                 backgroundSize: 'cover',
-                 backgroundPosition: 'center top',
-               }}>
-          </div>
+        <div className={style.container}>
+          <Backdrop backdropPath={movie.backdrop_path}>
+            <div className={style.buttonContainer}>
+              <TooltipButton icon='favorite_border' floating accent tooltip='Favorite' />
+              <TooltipButton icon='visibility_off' floating accent mini tooltip='Watched' />
+              <TooltipButton icon='watch_later' floating accent mini tooltip='Watch Later' />
+            </div>
+          </Backdrop>
+
           <Ribbon movie={movie}/>
-          <Card className={style.firstCard}>
-            <Button label={'Play Trailer'} onClick={this.handleOnClickTrailer} flat primary/>
-            <CardTitle subtitle={movie.tagline}/>
-            <CardText>{movie.overview}</CardText>
-          </Card>
+
+          <div className={style.content}>
+            <Overview movie={movie}/>
+          </div>
+
+          {
+            !!movie.credits && movie.credits.cast.length > 0 &&
+            <div className={style.content}>
+              <div className={style.sectionTitle}>Cast</div>
+              <Cast percent={0} cast={movie.credits.cast}/>
+            </div>
+          }
+
+          {
+            !!movie.recommendations && movie.recommendations.results.length > 0 &&
+            <div className={style.content}>
+              <div className={style.sectionTitle}>Recommendations</div>
+              <Recommendations recommendations={movie.recommendations}/>
+            </div>
+          }
         </div>
       }
       {
