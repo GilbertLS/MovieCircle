@@ -67,8 +67,10 @@ export default class Navigation extends React.Component {
             <ListItem caption='Watched' leftIcon='visibility' onClick={() => {this.handleOnClick(paths.watched)}}/>
             <ListItem caption='Watch Later' leftIcon='schedule' onClick={() => {this.handleOnClick(paths.watchLater)}}/>
             <ListDivider />
+            <ListSubHeader caption='Your Account' />
             <ListItem caption='Settings' leftIcon='settings' onClick={() => {this.handleOnClick(paths.settings)}}/>
             <ListItem caption='Sign Out' leftIcon='cancel' onClick={() => {this.handleSignOutOnClick()}}/>
+            <ListDivider />
             <ListItem caption='About' leftIcon='help' onClick={() => {this.handleAboutOnClick()}}/>
           </List>
         }

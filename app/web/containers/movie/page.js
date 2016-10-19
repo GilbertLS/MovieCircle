@@ -72,11 +72,14 @@ export default class MoviePage extends Component {
         !!movie &&
         <div className={style.container}>
           <Backdrop backdropPath={movie.backdrop_path}>
-            <div className={style.buttonContainer}>
-              <TooltipButton icon='favorite_border' floating accent tooltip='Favorite' />
-              <TooltipButton icon='visibility_off' floating accent mini tooltip='Watched' />
-              <TooltipButton icon='watch_later' floating accent mini tooltip='Watch Later' />
-            </div>
+            {
+              !!this.props.isLoggedIn &&
+              <div className={style.buttonContainer}>
+                <TooltipButton icon='favorite_border' floating accent tooltip='Favorite' />
+                <TooltipButton icon='visibility_off' floating accent mini tooltip='Watched' />
+                <TooltipButton icon='watch_later' floating accent mini tooltip='Watch Later' />
+              </div>
+            }
           </Backdrop>
 
           <Ribbon movie={movie}/>
