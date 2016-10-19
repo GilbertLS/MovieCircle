@@ -26,19 +26,32 @@ export default class moviePoster extends OnVisible {
   }
 
   render() {
+    const movie = this.props.movie;
+    const posterClasses = (!!movie.poster_path) ? style.moviePoster : style.moviePoster +' '+ style.empty;
+
     return (
       <div
-      className={style.moviePoster}
-      ref={el => { this.holder = el; }}
-      onClick={() => {this.handleOnClick(this.props.movie.id)}}
-      >
-      {
-        this.state.visible &&
-        <img
-          onLoad={this.handleImageOnLoad}
-          src={'https://image.tmdb.org/t/p/w342/' + this.props.movie.poster_path}
-          className={this.state.loaded ? style.loaded : style.image}/>
-      }
+        className={posterClasses}
+        ref={el => { this.holder = el; }}
+        onClick={() => {this.handleOnClick(movie.id)}}>
+        {
+          this.state.visible &&
+          !!movie.poster_path &&
+          <div className={this.state.loaded ? style.loaded : style.imageContainer}>
+            <img
+              onLoad={this.handleImageOnLoad}
+              src={'https://image.tmdb.org/t/p/w342/' + movie.poster_path}
+              className={style.image}/>
+            <div className={style.title}>{movie.title}</div>
+          </div>
+        }
+        {
+          this.state.visible &&
+          !movie.poster_path &&
+          <div className={style.noPoster}>
+            <div className={style.title}>{movie.title}</div>
+          </div>
+        }
       </div>
     );
   }
