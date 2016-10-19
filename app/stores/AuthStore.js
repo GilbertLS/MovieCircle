@@ -4,7 +4,8 @@ import AuthActions from '../actions/AuthActions';
 class AuthStore {
   constructor() {
     this.bindListeners({
-      _handleVerifyFacebook: AuthActions.LOGIN_FACEBOOK,
+      _loginFacebook: AuthActions.LOGIN_FACEBOOK,
+      _logoutFacebook: AuthActions.LOGOUT_FACEBOOK,
     });
 
     this.exportPublicMethods({
@@ -16,9 +17,15 @@ class AuthStore {
     };
   }
 
-    _handleVerifyFacebook(response) {
+    _loginFacebook(response) {
       this.setState({
         isLoggedIn: (response.status == 200 || response.status == 201) ? true : false,
+      });
+    }
+
+    _logoutFacebook() {
+      this.setState({
+        isLoggedIn: false,
       });
     }
 

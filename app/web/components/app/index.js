@@ -50,7 +50,10 @@ export default class App extends React.Component {
   }
 
   handleFacebookChange(state) {
-    AuthActions.loginFacebook(FacebookStore.getAuth());
+    const auth = FacebookStore.getAuth();
+    if(auth) {
+      AuthActions.loginFacebook(auth);
+    }
   }
 
   handleAuthChange(state) {

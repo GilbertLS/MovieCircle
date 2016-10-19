@@ -1,6 +1,9 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
+import FacebookActions from '../../../actions/FacebookActions';
+import AuthActions from '../../../actions/AuthActions';
+
 import {
   List,
   ListItem,
@@ -40,6 +43,11 @@ export default class Navigation extends React.Component {
     });
   }
 
+  handleSignOutOnClick() {
+    FacebookActions.logout();
+    AuthActions.logoutFacebook();
+  }
+
   render() {
     return (
       <nav className={style.container}>
@@ -54,6 +62,7 @@ export default class Navigation extends React.Component {
             <ListItem caption='Watch Later' leftIcon='schedule' onClick={() => {this.handleOnClick(paths.watchLater)}}/>
             <ListDivider />
             <ListItem caption='Settings' leftIcon='settings' onClick={() => {this.handleOnClick(paths.settings)}}/>
+            <ListItem caption='Sign Out' leftIcon='cancel' onClick={() => {this.handleSignOutOnClick()}}/>
             <ListItem caption='About' leftIcon='help' onClick={() => {this.handleAboutOnClick()}}/>
           </List>
         }

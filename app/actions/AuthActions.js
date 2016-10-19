@@ -13,6 +13,10 @@ class AuthActions {
       });
     }
   }
+
+  logoutFacebook() {
+    return true;
+  }
 }
 
 export default alt.createActions(AuthActions);
