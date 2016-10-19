@@ -30,15 +30,17 @@ export default class SearchPage extends Component {
     SearchActions.clearMovies();
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      query: props.params.query,
-      index: 0,
-      movies: [],
-      page: 1,
-      loading: false,
-      end: false,
-    });
+  componentWillReceiveProps(nextProps) {
+    if(this.state.query != nextProps.params.query) {
+      this.setState({
+        query: nextProps.params.query,
+        index: 0,
+        movies: [],
+        page: 1,
+        loading: false,
+        end: false,
+      });
+    }
   }
 
   componentWillUnmount() {
