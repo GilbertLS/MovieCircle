@@ -5,6 +5,12 @@ class MovieInfoStore {
   constructor() {
     this.bindListeners({
       _handleGetMovieInfo: MovieInfoActions.GET_MOVIE_INFO,
+      _handleFavoriteMovie: MovieInfoActions.FAVORITE_MOVIE,
+      _handleRemoveFavoriteMovie: MovieInfoActions.REMOVE_FAVORITE_MOVIE,
+      _handleWatchedMovie: MovieInfoActions.WATCHED_MOVIE,
+      _handleRemoveWatchedMovie: MovieInfoActions.REMOVE_WATCHED_MOVIE,
+      _handleWatchLaterMovie: MovieInfoActions.WATCH_LATER_MOVIE,
+      _handleRemoveWatchLaterMovie: MovieInfoActions.REMOVE_WATCH_LATER_MOVIE,
     });
 
     this.exportPublicMethods({
@@ -13,6 +19,9 @@ class MovieInfoStore {
 
     this.state = {
       movie: undefined,
+      watched: false,
+      watchLater: false,
+      favorite: false,
     };
   }
 
@@ -29,6 +38,54 @@ class MovieInfoStore {
     this.setState({
       movie: response,
     });
+  }
+
+  _handleFavoriteMovie(success) {
+    if(!!success) {
+      this.setState({ favorite: true });
+    } else {
+      this.setState({ favorite: false });
+    }
+  }
+
+  _handleRemoveFavoriteMovie(success) {
+    if(!!success) {
+      this.setState({ favorite: false });
+    } else {
+      this.setState({ favorite: true });
+    }
+  }
+
+  _handleWatchedMovie(success) {
+    if(!!success) {
+      this.setState({ watched: true });
+    } else {
+      this.setState({ watched: false });
+    }
+  }
+
+  _handleRemoveWatchedMovie(success) {
+    if(!!success) {
+      this.setState({ watched: false });
+    } else {
+      this.setState({ watched: true });
+    }
+  }
+
+  _handleWatchLaterMovie(success) {
+    if(!!success) {
+      this.setState({ watchLater: true });
+    } else {
+      this.setState({ watchLater: false });
+    }
+  }
+
+  _handleRemoveWatchLaterMovie(success) {
+    if(!!success) {
+      this.setState({ watchLater: false });
+    } else {
+      this.setState({ watchLater: true });
+    }
   }
 }
 

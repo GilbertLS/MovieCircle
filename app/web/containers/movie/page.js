@@ -32,9 +32,15 @@ export default class MoviePage extends Component {
     this.state = {
       id: this.props.params.id,
       movie: undefined,
+      watched: false,
+      favorite: false,
+      watchLater: false,
     }
 
     this.handleMovieInfoStoreChange = this.handleMovieInfoStoreChange.bind(this);
+    this.handleOnWatchedClick       = this.handleOnWatchedClick.bind(this);
+    this.handleOnWatchLaterClick    = this.handleOnWatchLaterClick.bind(this);
+    this.handleOnFavoriteClick      = this.handleOnFavoriteClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +49,9 @@ export default class MoviePage extends Component {
       this.setState({
         id: nextProps.params.id,
         movie: undefined,
+        watched: false,
+        favorite: false,
+        watchLater: false,
       });
       MovieInfoActions.getMovieInfo(nextProps.params.id);
     }
@@ -60,7 +69,37 @@ export default class MoviePage extends Component {
   handleMovieInfoStoreChange(store) {
     this.setState({
       movie: store.movie,
+      watched: store.watched,
+      favorite: store.favorite,
+      watchLater: store.watchLater,
     });
+  }
+
+  handleOnWatchedClick() {
+    if(!this.state.watched) {
+      MovieInfoActions.watchedMovie(this.state.id);
+    } else {
+      MovieInfoActions.removeWatchedMovie(this.state.id)
+    }
+    this.setState({ watched: true });
+  }
+
+  handleOnWatchLaterClick() {
+    if(!this.state.watchLater) {
+      MovieInfoActions.watchLaterMovie(this.state.id);
+    } else {
+      MovieInfoActions.removeWatchLaterMovie(this.state.id)
+    }
+    this.setState({ watchLater: true });
+  }
+
+  handleOnFavoriteClick() {
+    if(!this.state.favorite) {
+      MovieInfoActions.favoriteMovie(this.state.id);
+    } else {
+      MovieInfoActions.removeFavoriteMovie(this.state.id)
+    }
+    this.setState({ favorite: true });
   }
 
   render() {
@@ -75,9 +114,21 @@ export default class MoviePage extends Component {
             {
               !!this.props.isLoggedIn &&
               <div className={style.buttonContainer}>
-                <TooltipButton icon='favorite_border' floating accent tooltip='Favorite' />
-                <TooltipButton icon='visibility_off' floating accent mini tooltip='Watched' />
-                <TooltipButton icon='watch_later' floating accent mini tooltip='Watch Later' />
+                <TooltipButton
+                  icon={(this.state.favorite) ? 'favorite' : 'favorite_border'}
+                  floating accent
+                  tooltip={(this.state.favorite) ? 'Remove Favorite' : 'Favorite'}
+                  onClick={this.handleOnFavoriteClick}/>
+                <TooltipButton
+                  icon={(this.state.watched) ? 'visibility_on' : 'visibility_off'}
+                  floating accent mini
+                  tooltip={(this.state.watched) ? 'Remove Watched' : 'Watched'}
+                  onClick={this.handleOnWatchedClick}/>
+                <TooltipButton
+                  icon={(this.state.watchLater) ? 'cancel' : 'watch_later'}
+                  floating accent mini
+                  tooltip={(this.state.watchLater) ? 'Remove Watch Later' : 'Watch Later'}
+                  onClick={this.handleOnWatchLaterClick}/>
               </div>
             }
           </Backdrop>
