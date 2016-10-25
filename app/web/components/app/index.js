@@ -57,9 +57,10 @@ export default class App extends React.Component {
   }
 
   handleAuthChange(state) {
-    if(this.state.isLoggedIn !== UserStore.getLoggedIn) {
+    const isLoggedIn = UserStore.getLoggedIn();
+    if(this.state.isLoggedIn !== isLoggedIn) {
       this.setState({
-        isLoggedIn: UserStore.getLoggedIn()
+        isLoggedIn: UserStore.getLoggedIn(),
       });
     }
   }

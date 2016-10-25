@@ -6,7 +6,7 @@ class ListActions {
   getFavoriteMovies(page) {
     return callUserRouteDispatch(page, UserAPI.getFavoriteMovies);
   }
-  
+
   getWatchedMovies(page) {
     return callUserRouteDispatch(page, UserAPI.getWatchedMovies);
   }
