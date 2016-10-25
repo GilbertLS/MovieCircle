@@ -1,7 +1,7 @@
 import alt from '../alt';
 import LoginAPI from '../api/LoginAPI';
 
-class AuthActions {
+class UserActions {
   loginFacebook(authObject) {
     return (dispatch) => {
       LoginAPI.loginFacebook(authObject, (response) => {
@@ -19,4 +19,4 @@ class AuthActions {
   }
 }
 
-export default alt.createActions(AuthActions);
+export default alt.createActions(UserActions);

@@ -1,5 +1,6 @@
 import alt from '../alt';
 import MovieActions from '../actions/MovieActions';
+import UserAction from '../actions/UserActions';
 
 class MovieStore {
   constructor() {

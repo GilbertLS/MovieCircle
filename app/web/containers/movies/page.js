@@ -1,7 +1,5 @@
 import React, { Component} from 'react';
 import { browserHistory } from 'react-router';
-import MovieActions from '../../../actions/MovieActions';
-import MovieStore from '../../../stores/MovieStore';
 
 import {
   Tab,
@@ -10,8 +8,7 @@ import {
 } from 'react-toolbox';
 
 import {
-  MovieGrid,
-  PageLoader,
+  MovieGridLogic,
 } from '../../components';
 
 import style from './style.scss';
@@ -19,104 +16,36 @@ import style from './style.scss';
 export default class MoviesPage extends Component {
   constructor(props) {
     super(props);
-    let index = parseInt(props.params.index);
+    let listName = props.params.listName;
 
     this.state = {
-      index: (Number.isInteger(index)) ? index : 0,
-      movies: [],
-      page: 1,
-      loading: false,
-      end: false,
+      index: getIndexFromListName(listName),
+      listName: listName || 'popular',
     }
 
-    this.handleMovieStoreChange = this.handleMovieStoreChange.bind(this);
     this.handleTabChange        = this.handleTabChange.bind(this);
-    this.handleScroll           = this.handleScroll.bind(this);
   }
 
-  componentDidMount() {
-    MovieStore.listen(this.handleMovieStoreChange);
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('resize', this.handleScroll);
-    this.getMovies();
-  }
+  componentWillReceiveProps(nextProps) {
+    let listName = nextProps.params.listName;
 
-  componentWillUnmount() {
-    MovieStore.unlisten(this.handleMovieStoreChange);
-    window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.handleScroll);
-  }
-
-  componentDidUpdate() {
-    if(this.state.movies && this.state.movies.length == 0) {
-      this.getMovies();
-    }
-  }
-
-  handleMovieStoreChange(store) {
-    this.getMovies();
-  }
-
-  getMovies() {
-    const getPage = (storeOrActions) => {
-        switch(this.state.index) {
-          case 1:
-            return storeOrActions.getTopRatedMovies(this.state.page);
-            break;
-          case 2:
-            return storeOrActions.getNowPlayingMovies(this.state.page);
-            break;
-          case 3:
-            return storeOrActions.getUpcomingMovies(this.state.page);
-            break;
-          default:
-            return storeOrActions.getPopularMovies(this.state.page);
-        }
-    }
-
-    const currentPage = getPage(MovieStore);
-
-    if(currentPage && currentPage.length > 0) {
-      //Page has movies in it
-      //So we display it
+    if(listName !== this.state.listName) {
       this.setState({
-        page: this.state.page + 1,
-        movies: this.state.movies.concat(currentPage),
-        loading: false,
-      })
-    } else if (currentPage){
-      //Page is empty
-      //Do not get anymore movies
-      this.setState({
-        loading: false,
-        end: true,
-      });
-    } else if(!this.state.loading) {
-      //Page does not exist yet
-      //Perform action to get page
-      getPage(MovieActions);
-      this.setState({
-        loading: true,
+        listName: listName || 'popular',
+        index: getIndexFromListName(listName),
       });
     }
   }
 
   handleTabChange(i) {
-    this.setState({
-      page: 1,
-      index: i,
-      movies: [],
-      loading: false,
-    });
-    browserHistory.replace('/' + i);
-  }
+    let listName = getListNameFromIndex(i);
 
-  handleScroll() {
-    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-    if (!this.state.loading && !this.state.end && (scrollTop + window.innerHeight) >= scrollHeight) {
-      this.getMovies();
-    }
+    this.setState({
+      index: i,
+      listName: listName,
+    });
+
+    browserHistory.replace('/movies/' + listName);
   }
 
   render() {
@@ -125,7 +54,7 @@ export default class MoviesPage extends Component {
         <div className={style.tabContainer}>
           <div className={style.tabScroll}>
             <Tabs index={this.state.index} onChange={this.handleTabChange} inverse>
-              <Tab label='Trending'></Tab>
+              <Tab label='Popular'></Tab>
               <Tab label='Top Rated'></Tab>
               <Tab label='Now Playing'></Tab>
               <Tab label='Upcoming'></Tab>
@@ -133,13 +62,41 @@ export default class MoviesPage extends Component {
           </div>
         </div>
         <div className={style.gridContainer}>
-          <MovieGrid movies={this.state.movies}/>
-          {
-            this.state.loading &&
-            <PageLoader/>
-          }
+          <MovieGridLogic listName={this.state.listName} store='movie'/>
         </div>
       </div>
     );
+  }
+}
+
+const getListNameFromIndex = function(i) {
+  switch(i) {
+    case 1:
+      return 'top_rated';
+      break;
+    case 2:
+      return 'now_playing';
+      break;
+    case 3:
+      return 'upcoming';
+      break;
+    default:
+      return 'popular';
+  }
+}
+
+const getIndexFromListName = function(listName) {
+  switch(listName) {
+    case 'top_rated':
+      return 1;
+      break;
+    case 'now_playing':
+      return 2;
+      break;
+    case 'upcoming':
+      return 3;
+      break;
+    default:
+      return 0;
   }
 }

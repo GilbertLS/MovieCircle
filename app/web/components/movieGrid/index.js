@@ -1,16 +1,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { MoviePoster } from '..';
+
+import {
+  MoviePoster,
+} from '..';
 
 import style from './style.scss';
 
 export default class MovieGrid extends React.Component {
-  handleOnClick(id) {
-    browserHistory.push('/movie/' + id);
-  }
-
   render() {
-
     return (
       <div className={style.grid + ' ' + this.props.className}>
         {

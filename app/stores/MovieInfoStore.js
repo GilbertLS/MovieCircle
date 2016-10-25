@@ -37,6 +37,9 @@ class MovieInfoStore {
 
     this.setState({
       movie: response,
+      watched: false,
+      favorite: false,
+      watchLater: false,
     });
   }
 

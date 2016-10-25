@@ -2,8 +2,8 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import FacebookStore from '../../../stores/FacebookStore';
 import FacebookActions from '../../../actions/FacebookActions';
-import AuthStore from '../../../stores/AuthStore';
-import AuthActions from '../../../actions/AuthActions';
+import UserStore from '../../../stores/UserStore';
+import UserActions from '../../../actions/UserActions';
 
 import {
   AppBar,
@@ -27,7 +27,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       drawerActive: false,
-      isLoggedIn: AuthStore.getLoggedIn(),
+      isLoggedIn: UserStore.getLoggedIn(),
     }
 
     this.toggleDrawerActive   = this.toggleDrawerActive.bind(this);
@@ -41,26 +41,27 @@ export default class App extends React.Component {
 
   componentDidMount() {
     FacebookStore.listen(this.handleFacebookChange);
-    AuthStore.listen(this.handleAuthChange);
+    UserStore.listen(this.handleAuthChange);
   }
 
   componentWillUnmount() {
     FacebookStore.unlisten(this.handleFacebookChange);
-    AuthStore.unlisten(this.handleAuthChange);
+    UserStore.unlisten(this.handleAuthChange);
   }
 
   handleFacebookChange(state) {
     const auth = FacebookStore.getAuth();
     if(auth) {
-      AuthActions.loginFacebook(auth);
+      UserActions.loginFacebook(auth);
     }
   }
 
   handleAuthChange(state) {
-    console.log(AuthStore.getLoggedIn());
-    this.setState({
-      isLoggedIn: AuthStore.getLoggedIn()
-    });
+    if(this.state.isLoggedIn !== UserStore.getLoggedIn) {
+      this.setState({
+        isLoggedIn: UserStore.getLoggedIn()
+      });
+    }
   }
 
   toggleDrawerActive() {

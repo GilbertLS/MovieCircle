@@ -24,14 +24,14 @@ const routes = {
   component: App,
   childRoutes: [
     { path: '/', component: MoviesPage },
-    { path: '/:index', component: MoviesPage },
+    { path: '/movies/:listName', component: MoviesPage },
     { path: '/movie/:id', component: MoviePage },
     { path: '/search/:query', component: SearchPage },
     {
-      path: '/u',
+      path: '/list',
       component: AuthComponent,
       childRoutes: [
-        { path: '/u/favorites', component: FavoritesPage },
+        { path: '/list/:listName', component: FavoritesPage },
       ]
     },
   ]

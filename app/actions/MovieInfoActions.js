@@ -1,5 +1,6 @@
 import alt from '../alt';
 import MovieAPI from '../api/MovieAPI';
+import UserAPI from '../api/UserAPI';
 import FacebookStore from '../stores/FacebookStore';
 
 class MovieInfoActions {
@@ -17,36 +18,36 @@ class MovieInfoActions {
   }
 
   favoriteMovie(movieId) {
-    return callUserRouteDispatch(movieId, MovieAPI.favoriteMovie);
+    return callUserRouteDispatch(movieId, UserAPI.favoriteMovie);
   }
 
   removeFavoriteMovie(movieId) {
-    return callUserRouteDispatch(movieId, MovieAPI.removeFavoriteMovie);
+    return callUserRouteDispatch(movieId, UserAPI.removeFavoriteMovie);
   }
 
   watchedMovie(movieId) {
-    return callUserRouteDispatch(movieId, MovieAPI.watchedMovie);
+    return callUserRouteDispatch(movieId, UserAPI.watchedMovie);
   }
 
   removeWatchedMovie(movieId) {
-    return callUserRouteDispatch(movieId, MovieAPI.removeWatchedMovie);
+    return callUserRouteDispatch(movieId, UserAPI.removeWatchedMovie);
   }
 
   watchLaterMovie(movieId) {
-    return callUserRouteDispatch(movieId, MovieAPI.watchLaterMovie);
+    return callUserRouteDispatch(movieId, UserAPI.watchLaterMovie);
   }
 
   removeWatchLaterMovie(movieId) {
-    return callUserRouteDispatch(movieId, MovieAPI.removeWatchLaterMovie);
+    return callUserRouteDispatch(movieId, UserAPI.removeWatchLaterMovie);
   }
 }
 
-const callUserRouteDispatch = function(movieId, movieAPIFunction) {
+const callUserRouteDispatch = function(movieId, userAPIFunction) {
   const auth = FacebookStore.getAuth();
 
   return (dispatch) => {
-    movieAPIFunction(movieId, auth, (status) => {
-      if(status == 200) {
+    userAPIFunction(movieId, auth, (response) => {
+      if(response.status == 200) {
         dispatch(true);
       } else {
         //Error Handling

@@ -2,7 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 
 import FacebookActions from '../../../actions/FacebookActions';
-import AuthActions from '../../../actions/AuthActions';
+import UserActions from '../../../actions/UserActions';
 
 import {
   List,
@@ -18,10 +18,9 @@ const facebookLogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYA
 
 const paths = {
   movies: '/',
-  favorites: '/u/favorites',
-  watched: '/u/watched',
-  watchLater: '/u/watchlater',
-  settings: '/u/settings',
+  favorites: '/list/favorites',
+  watched: '/list/watched',
+  watchLater: '/list/watch_later',
 };
 
 export default class Navigation extends React.Component {
@@ -47,7 +46,7 @@ export default class Navigation extends React.Component {
 
   handleSignOutOnClick() {
     FacebookActions.logout();
-    AuthActions.logoutFacebook();
+    UserActions.logoutFacebook();
   }
 
   handleSignInOnClick() {
@@ -68,7 +67,6 @@ export default class Navigation extends React.Component {
             <ListItem caption='Watch Later' leftIcon='schedule' onClick={() => {this.handleOnClick(paths.watchLater)}}/>
             <ListDivider />
             <ListSubHeader caption='Your Account' />
-            <ListItem caption='Settings' leftIcon='settings' onClick={() => {this.handleOnClick(paths.settings)}}/>
             <ListItem caption='Sign Out' leftIcon='cancel' onClick={() => {this.handleSignOutOnClick()}}/>
             <ListDivider />
             <ListItem caption='About' leftIcon='help' onClick={() => {this.handleAboutOnClick()}}/>

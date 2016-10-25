@@ -53,7 +53,6 @@ class MovieActions {
       });
     }
   }
-
 }
 
 export default alt.createActions(MovieActions);
