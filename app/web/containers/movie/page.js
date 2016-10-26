@@ -53,17 +53,31 @@ export default class MoviePage extends Component {
         favorite: false,
         watchLater: false,
       });
-      MovieInfoActions.getMovieInfo(nextProps.params.id);
+      this.getMovieInfo(nextProps.params.id);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.isLoggedIn !== this.props.isLoggedIn) {
+      this.getMovieInfo(this.props.params.id);
     }
   }
 
   componentDidMount() {
     MovieInfoStore.listen(this.handleMovieInfoStoreChange);
-    MovieInfoActions.getMovieInfo(this.state.id);
+    this.getMovieInfo(this.state.id);
   }
 
   componentWillUnmount() {
     MovieInfoStore.unlisten(this.handleMovieInfoStoreChange);
+  }
+
+  getMovieInfo(id) {
+    if(this.props.isLoggedIn) {
+      MovieInfoActions.getAuthMovieInfo(id);
+    } else {
+      MovieInfoActions.getMovieInfo(id);
+    }
   }
 
   handleMovieInfoStoreChange(store) {

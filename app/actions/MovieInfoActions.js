@@ -4,9 +4,24 @@ import UserAPI from '../api/UserAPI';
 import FacebookStore from '../stores/FacebookStore';
 
 class MovieInfoActions {
-  getMovieInfo(id) {
+  getMovieInfo(movieId) {
     return (dispatch) => {
-      MovieAPI.getMovieInfo(id, (response) => {
+      MovieAPI.getMovieInfo(movieId, (response) => {
+        if(response) {
+          dispatch(response);
+        } else {
+          //Error Handling
+          dispatch({});
+        }
+      });
+    }
+  }
+
+  getAuthMovieInfo(movieId) {
+    const auth = FacebookStore.getAuth();
+
+    return (dispatch) => {
+      MovieAPI.getAuthMovieInfo(movieId, auth, (response) => {
         if(response) {
           dispatch(response);
         } else {

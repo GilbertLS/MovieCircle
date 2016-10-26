@@ -18,13 +18,23 @@ export default {
     getMovies('/search/' + query + '/' + page, callback);
   },
   getMovieInfo(id, callback) {
-    getMovies('/movie/' + id + '?append_to_response=videos,recommendations,credits', callback);
+    getMovies('/movie/' + id, callback);
   },
+  getAuthMovieInfo(movieId, authObject, callback) {
+    getMovies(
+      '/movie/' + movieId + '/user/' + authObject.userID,
+      callback,
+      authObject
+    );
+  }
 };
 
-const getMovies = (path, callback) => {
+const getMovies = (path, callback, authObject) => {
   fetch(URL + '/api' + path, {
     method: 'GET',
+    headers: {
+      "Authorization": (!!authObject) ? authObject.accessToken : '',
+    },
   })
   .then((response) => {return response.json()})
   .then((response) => {
