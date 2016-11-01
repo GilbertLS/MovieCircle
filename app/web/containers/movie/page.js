@@ -5,9 +5,10 @@ import MovieInfoActions from '../../../actions/MovieInfoActions';
 import style from './style.scss';
 
 import {
-  Card,
   Button,
-  Tooltip,
+  IconMenu,
+  MenuItem,
+  FontIcon,
 } from 'react-toolbox';
 
 import {
@@ -21,9 +22,8 @@ import {
 import {
   MovieGrid,
   PageLoader,
+  ButtonMenu,
 } from '../../components/';
-
-const TooltipButton = Tooltip(Button);
 
 export default class MoviePage extends Component {
   constructor(props) {
@@ -59,6 +59,11 @@ export default class MoviePage extends Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.isLoggedIn !== this.props.isLoggedIn) {
+      this.setState({
+        watched: false,
+        favorite: false,
+        watchLater: false,
+      });
       this.getMovieInfo(this.props.params.id);
     }
   }
@@ -128,21 +133,45 @@ export default class MoviePage extends Component {
             {
               !!this.props.isLoggedIn &&
               <div className={style.buttonContainer}>
-                <TooltipButton
-                  icon={(this.state.favorite) ? 'favorite' : 'favorite_border'}
-                  floating accent
-                  tooltip={(this.state.favorite) ? 'Remove Favorite' : 'Favorite'}
-                  onClick={this.handleOnFavoriteClick}/>
-                <TooltipButton
-                  icon={(this.state.watched) ? 'visibility_on' : 'visibility_off'}
-                  floating accent mini
-                  tooltip={(this.state.watched) ? 'Remove Watched' : 'Watched'}
-                  onClick={this.handleOnWatchedClick}/>
-                <TooltipButton
-                  icon={(this.state.watchLater) ? 'cancel' : 'watch_later'}
-                  floating accent mini
-                  tooltip={(this.state.watchLater) ? 'Remove Watch Later' : 'Watch Later'}
-                  onClick={this.handleOnWatchLaterClick}/>
+                {
+                  !!this.state.favorite &&
+                  <FontIcon value='favorite' />
+                }
+                {
+                  !!this.state.watched &&
+                  <FontIcon value='visibility' />
+                }
+                {
+                  !!this.state.watchLater &&
+                  <FontIcon value='watch_later' />
+                }
+                {
+                  <div className={style.menu}>
+                    <ButtonMenu>
+                      <MenuItem
+                        caption={
+                          (!this.state.favorite) ? 'Add To Favorites' :
+                                                   'Remove From Favorites'
+                        }
+                        onClick={this.handleOnFavoriteClick}
+                        icon='favorite'/>
+                      <MenuItem
+                        caption={
+                          (!this.state.watched) ? 'Add To Watched' :
+                                                  'Remove From Watched'
+                        }
+                        onClick={this.handleOnWatchedClick}
+                        icon='visibility_on'/>
+                      <MenuItem
+                        caption={
+                          (!this.state.watchLater) ? 'Add To Watch Later' :
+                                                     'Remove From Watch Later'
+                        }
+                        onClick={this.handleOnWatchLaterClick}
+                        icon='watch_later'/>
+                    </ButtonMenu>
+                  </div>
+                }
               </div>
             }
           </Backdrop>

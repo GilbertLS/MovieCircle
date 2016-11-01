@@ -1,36 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   View,
-  ToolbarAndroid,
 } from 'react-native';
-import Login from './app/android/components/Login';
+
+import {
+  App,
+} from './app/android/components';
+
+import {
+  MoviesPage,
+  MoviePage,
+} from './app/android/containers';
 
 class MovieCircle extends Component {
   render() {
     return (
-      <ToolbarAndroid
-        style={styles.toolbar}
-        title='MovieCircle'
-        titleColor='#ffffff'
-        navIcon={require('image!ic_menu_black_24dp')}/>
+      <Router>
+        <Scene key='root' component={App}>
+          <Scene key='movies' component={MoviesPage} title='Movies' initial={true} />
+          <Scene key='movie' component={MoviePage} title='Movie' />
+        </Scene>
+      </Router>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  toolbar: {
-    backgroundColor: '#5e35b1',
-    height: 56,
-  },
-});
 
 AppRegistry.registerComponent('MovieCircle', () => MovieCircle);

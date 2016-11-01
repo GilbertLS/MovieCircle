@@ -23,7 +23,7 @@ export default class MoviesPage extends Component {
       listName: listName || 'popular',
     }
 
-    this.handleTabChange        = this.handleTabChange.bind(this);
+    this.handleTabChange = this.handleTabChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {

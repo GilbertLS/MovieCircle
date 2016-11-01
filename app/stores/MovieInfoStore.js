@@ -5,7 +5,7 @@ class MovieInfoStore {
   constructor() {
     this.bindListeners({
       _handleGetMovieInfo: MovieInfoActions.GET_MOVIE_INFO,
-      _handleGetMovieInfo: MovieInfoActions.GET_AUTH_MOVIE_INFO,
+      _handleAuthGetMovieInfo: MovieInfoActions.GET_AUTH_MOVIE_INFO,
       _handleFavoriteMovie: MovieInfoActions.FAVORITE_MOVIE,
       _handleRemoveFavoriteMovie: MovieInfoActions.REMOVE_FAVORITE_MOVIE,
       _handleWatchedMovie: MovieInfoActions.WATCHED_MOVIE,
@@ -26,6 +26,10 @@ class MovieInfoStore {
     };
   }
 
+  _handleAuthGetMovieInfo(response) {
+    this._handleGetMovieInfo(response);
+  }
+
   _handleGetMovieInfo(response) {
     if(response.videos) {
       let i = response.videos.results.length;
@@ -37,13 +41,12 @@ class MovieInfoStore {
     }
 
     const userDetails = response.user_details;
-    console.log(userDetails)
 
     this.setState({
       movie: response,
-      watched: !!userDetails.watched,
-      favorite: !!userDetails.favorite,
-      watchLater: !!userDetails.watch_later,
+      watched: !!userDetails && !!userDetails.watched,
+      favorite: !!userDetails && !!userDetails.favorite,
+      watchLater: !!userDetails && !!userDetails.watch_later,
     });
   }
 
