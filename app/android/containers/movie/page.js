@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {
+  StyleSheet,
   View,
   Text,
 } from 'react-native';
@@ -8,11 +9,17 @@ import {
 export default class MoviePage extends Component {
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>
-          Movie Page
+          {'Movie Page: ' + this.props.movie.title}
         </Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

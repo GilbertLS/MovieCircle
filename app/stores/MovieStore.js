@@ -81,6 +81,10 @@ class MovieStore {
       return [];
     }
   }
+
+  getState() {
+    return this.state;
+  }
 }
 
 export default alt.createStore(MovieStore, 'MovieStore');

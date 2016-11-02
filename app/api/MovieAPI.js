@@ -40,5 +40,9 @@ const getMovies = (path, callback, authObject) => {
   .then((response) => {
     console.log(response);
     callback(response);
+  })
+  .catch((err) => {
+    console.error(err);
+    callback(undefined);
   });
 };

@@ -32,7 +32,6 @@ export default class App extends Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
-    console.log(children.length)
     return (
         <DrawerLayoutAndroid
           ref={(ref) => {this.drawer = ref}}

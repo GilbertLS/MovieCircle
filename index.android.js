@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Modal } from 'react-native-router-flux';
 
 import {
   AppRegistry,
@@ -20,9 +20,11 @@ class MovieCircle extends Component {
   render() {
     return (
       <Router>
-        <Scene key='root' component={App}>
-          <Scene key='movies' component={MoviesPage} title='Movies' initial={true} />
-          <Scene key='movie' component={MoviePage} title='Movie' />
+        <Scene key="modal" component={Modal} >
+          <Scene key='root' component={App}>
+            <Scene key='movies' component={MoviesPage} title='Movies' initial={true} />
+          </Scene>
+          <Scene key='movie' component={MoviePage} title='Movie'/>
         </Scene>
       </Router>
     );

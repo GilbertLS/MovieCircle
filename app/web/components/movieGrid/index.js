@@ -12,7 +12,7 @@ export default class MovieGrid extends React.Component {
     return (
       <div className={style.grid + ' ' + this.props.className}>
         {
-          this.props.movies &&
+          this.props.movies && this.props.movies.length > 0 &&
           this.props.movies.map((movie) => {
             return (
               <MoviePoster percent={-50} key={movie.id} movie={movie}/>
