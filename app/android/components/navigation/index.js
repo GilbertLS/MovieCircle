@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Actions } from 'react-native-router-flux';
+
+import { Toolbar } from 'react-native-material-ui';
 
 import FacebookActions from '../../../actions/FacebookActions';
 import UserActions from '../../../actions/UserActions';
@@ -36,7 +37,7 @@ export default class Navigation extends React.Component {
 
   handleOnClick(key) {
     if(!!key) {
-      Actions[key]();
+      //Actions[key]();
     }
     this.props.onClick();
   }
@@ -104,17 +105,24 @@ export default class Navigation extends React.Component {
 
     return (
       <ScrollView>
-          {
-            list.map((item) => {
-              if(item.type == 'button') {
-                return button(item.label, item.iconName, item.onclick);
-              } else if(item.type == 'divider') {
-                return divider(dividerNumber++);
-              } else if(item.type == 'title') {
-                return title(item.label);
-              }
-            })
-          }
+        <Toolbar
+          style={{
+            container: { backgroundColor: 'rgba(0,0,0,0)' },
+            leftElement: { color: '#bdbdbd' },
+          }}
+          leftElement='arrow-back'
+          onLeftElementPress={() => this.props.onClick()}/>
+        {
+          list.map((item) => {
+            if(item.type == 'button') {
+              return button(item.label, item.iconName, item.onclick);
+            } else if(item.type == 'divider') {
+              return divider(dividerNumber++);
+            } else if(item.type == 'title') {
+              return title(item.label);
+            }
+          })
+        }
       </ScrollView>
     );
   }

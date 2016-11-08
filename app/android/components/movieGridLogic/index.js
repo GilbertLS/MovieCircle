@@ -3,6 +3,7 @@ import React from 'react';
 import {
   StyleSheet,
   View,
+  ActivityIndicator,
 } from 'react-native';
 
 import MovieActions from '../../../actions/MovieActions';
@@ -116,7 +117,14 @@ export default class MovieGridLogic extends React.Component {
     return (
       <View style={styles.container}>
         {
+          this.state.movies.length > 0 &&
           <MovieGrid movies={this.state.movies}/>
+        }
+        {
+          this.state.movies.length == 0 &&
+          <View style={styles.indicatorContainer}>
+            <ActivityIndicator size={60} color='#ffc107' />
+          </View>
         }
       </View>
     );
@@ -127,6 +135,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  indicatorContainer: {
+    paddingTop: 20,
+  }
 });
 
 const getFunctionName = function(listName, store) {

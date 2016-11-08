@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Router, Scene, Modal } from 'react-native-router-flux';
 
 import {
   AppRegistry,
   StyleSheet,
   View,
+  UIManager,
 } from 'react-native';
+
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
 
 import {
   App,
+  Modal,
 } from './app/android/components';
 
 import {
@@ -16,19 +19,35 @@ import {
   MoviePage,
 } from './app/android/containers';
 
+const uiTheme = {
+    palette: {
+        primaryColor: '#5e35b1',
+        accentColor: '#ffc107'
+    },
+    toolbar: {
+        container: {
+            height: 56,
+            elevation: 0,
+        },
+    },
+};
+
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+
 class MovieCircle extends Component {
   render() {
     return (
-      <Router>
-        <Scene key="modal" component={Modal} >
-          <Scene key='root' component={App}>
-            <Scene key='movies' component={MoviesPage} title='Movies' initial={true} />
-          </Scene>
-          <Scene key='movie' component={MoviePage} title='Movie'/>
-        </Scene>
-      </Router>
+      <ThemeProvider uiTheme={uiTheme}>
+        <View style={styles.container}>
+          <App/>
+        </View>
+      </ThemeProvider>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {flex: 1, flexDirection: 'column'},
+});
 
 AppRegistry.registerComponent('MovieCircle', () => MovieCircle);

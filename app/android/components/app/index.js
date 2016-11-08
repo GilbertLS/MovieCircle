@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { DefaultRenderer } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -11,7 +10,17 @@ import {
   DrawerLayoutAndroid,
 } from 'react-native';
 
-import { Navigation } from '../';
+import { Toolbar } from 'react-native-material-ui';
+
+import {
+  MoviesPage,
+  MoviePage,
+ } from '../../containers';
+
+import {
+  Navigation,
+  Modal,
+ } from '../';
 
 export default class App extends Component {
   constructor(props) {
@@ -30,8 +39,6 @@ export default class App extends Component {
   }
 
   render() {
-    const state = this.props.navigationState;
-    const children = state.children;
     return (
         <DrawerLayoutAndroid
           ref={(ref) => {this.drawer = ref}}
@@ -41,17 +48,13 @@ export default class App extends Component {
           drawerBackgroundColor='#222'
           style={styles.layout}>
             <StatusBar backgroundColor='#4F2C94'/>
-            <Icon.ToolbarAndroid
-              onIconClicked={this.handleOnIconClick}
-              navIconName='menu'
-              style={styles.toolbar}
-              title='MovieCircle'
-              titleColor='#ffffff'/>
-            <View style={styles.container}>
-              {<DefaultRenderer
-                navigationState={(children.length > 0) ? children[children.length-1] : undefined}
-                onNavigate={this.props.onNavigate}/>}
-            </View>
+            <Toolbar
+              leftElement='menu'
+              centerElement='MovieCircle'
+              rightElement='search'
+              onLeftElementPress={this.handleOnIconClick}
+            />
+            <MoviesPage/>
         </DrawerLayoutAndroid>
     );
   }

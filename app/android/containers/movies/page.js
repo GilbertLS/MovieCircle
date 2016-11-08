@@ -28,7 +28,7 @@ export default class MoviesPage extends Component {
         <ScrollableTabView
           style={styles.container}
           tabBarUnderlineStyle={styles.underline}
-          tabBarBackgroundColor='#673ab7'
+          tabBarBackgroundColor='#5e35b1'
           tabBarInactiveTextColor='rgba(255, 255, 255, 0.7)'
           tabBarActiveTextColor='white'
           tabBarTextStyle={{fontSize: 14, fontWeight: '500'}}>

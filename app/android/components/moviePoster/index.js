@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import FitImage from 'react-native-fit-image';
-import { Actions } from 'react-native-router-flux';
 
 import {
   StyleSheet,
   View,
   TouchableOpacity,
   Image,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 export default class MoviePoster extends React.Component {
@@ -22,7 +22,8 @@ export default class MoviePoster extends React.Component {
   }
 
   handleOnPress() {
-    Actions.movie({movie: this.props.movie})
+    console.log('pressed');
+    //Actions.movie({movie: this.props.movie})
   }
 
   handleOnLoad() {
@@ -34,13 +35,20 @@ export default class MoviePoster extends React.Component {
 
   render() {
     return (
-      <View style={styles.poster}>
+      <TouchableNativeFeedback
+        onPress={this.handleOnPress}
+        delayPressIn={0}>
+        <View style={styles.poster}>
             <FitImage
               originalWidth={342}
               originalHeight={513}
+              indicator
+              indicatorColor='#ffc107' // react native colors or color codes like #919191
+              indicatorSize='large'
               source={{ uri: 'http://image.tmdb.org/t/p/w342' + this.props.movie.poster_path}}
             />
-      </View>
+        </View>
+      </TouchableNativeFeedback>
     );
   }
 };
@@ -50,12 +58,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 3,
     paddingTop: 3,
-    backgroundColor: 'red',
-    borderWidth: 1,
-    minHeight: 100,
-  },
-  hidden: {
-    width: 0,
-    height: 0,
   },
 });
