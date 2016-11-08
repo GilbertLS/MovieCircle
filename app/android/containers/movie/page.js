@@ -1,10 +1,9 @@
 import React, { Component} from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { ActionButton } from 'react-native-material-ui';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 import MovieInfoStore from '../../../stores/MovieInfoStore';
 import MovieInfoActions from '../../../actions/MovieInfoActions';
-
-import { ActionButton } from 'react-native-material-ui';
 
 import {
   StyleSheet,
@@ -12,6 +11,11 @@ import {
   Text,
   Image,
 } from 'react-native';
+
+import {
+  Overview,
+  Cast,
+} from './components';
 
 import {
   MovieGrid,
@@ -22,7 +26,7 @@ export default class MoviePage extends Component {
     super(props);
 
     this.state = {
-      id: 500,
+      id: 127380,
       movie: undefined,
       watched: false,
       favorite: false,
@@ -125,14 +129,37 @@ export default class MoviePage extends Component {
             <Image
               style={styles.backdrop}
               source={{ uri: 'http://image.tmdb.org/t/p/w1280' + movie.backdrop_path}}/>
+            <ScrollableTabView
+              style={styles.container}
+              tabBarUnderlineStyle={styles.underline}
+              tabBarBackgroundColor='#5e35b1'
+              tabBarInactiveTextColor='rgba(255, 255, 255, 0.7)'
+              tabBarActiveTextColor='white'
+              tabBarTextStyle={{fontSize: 14, fontWeight: '500'}}>
+              <View style={styles.container} tabLabel='DETAILS'>
+                <Overview movie={movie}/>
+              </View>
+              <View style={styles.container} tabLabel='CAST'>
+                <Cast cast={movie.credits.cast}/>
+              </View>
+            </ScrollableTabView>
           </View>
         }
         <ActionButton
           icon='add'
           actions={[
-            { icon: 'favorite', label: 'Add To Favorites' },
-            { icon: 'visibility-on', label: 'Add To Watched'},
-            { icon: 'watch-later', label: 'Add To Watch Later'},
+            {
+              icon: 'favorite',
+              label: (this.state.favorite) ? 'Remove From Favorites' : 'Add To Favorites'
+            },
+            {
+              icon: 'visibility',
+              label: (this.state.watched) ? 'Remove From Watched' : 'Add To Watched'
+            },
+            {
+              icon: 'watch-later',
+              label: (this.state.watchLater) ? 'Remove from Watch Later' : 'Add To Watch Later'
+            },
           ]}
           transition={'speedDial'}/>
       </View>
@@ -146,6 +173,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   backdrop: {
-    height: 300,
+    height: 200,
+  },
+  underline: {
+    backgroundColor: '#ffc107',
   },
 });

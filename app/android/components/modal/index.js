@@ -70,11 +70,6 @@ export default class Modal extends Component {
           }),
         }],
       }, styles.container]}>
-        <Toolbar
-          leftElement='arrow-back'
-          centerElement='MovieCircle'
-          onLeftElementPress={this.handleOnIconClick}
-        />
         {
           this.props.children
         }

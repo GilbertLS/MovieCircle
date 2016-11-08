@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import MovieActions from '../../../actions/MovieActions';
 import MovieStore from '../../../stores/MovieStore';

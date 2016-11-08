@@ -44,7 +44,7 @@ export default class MovieGrid extends React.Component {
               {
                 array.map((movie) => {
                   return (
-                    <MoviePoster movie={movie} key={movie.title}/>
+                    <MoviePoster movie={movie} key={movie.id}/>
                   )
                 })
               }

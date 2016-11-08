@@ -6,7 +6,6 @@ import {
   View,
   StatusBar,
   Text,
-  ToolbarAndroid,
   DrawerLayoutAndroid,
 } from 'react-native';
 

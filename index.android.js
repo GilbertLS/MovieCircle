@@ -17,6 +17,7 @@ import {
 import {
   MoviesPage,
   MoviePage,
+  SearchPage,
 } from './app/android/containers';
 
 const uiTheme = {
@@ -40,6 +41,9 @@ class MovieCircle extends Component {
       <ThemeProvider uiTheme={uiTheme}>
         <View style={styles.container}>
           <App/>
+          <Modal>
+            <SearchPage/>
+          </Modal>
         </View>
       </ThemeProvider>
     );
