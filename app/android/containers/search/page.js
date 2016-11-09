@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import SearchActions from '../../../actions/SearchActions';
 import SearchStore from '../../../stores/SearchStore';
 import { Toolbar } from 'react-native-material-ui';
+import RouterActions from '../../router/actions';
 
 import {
   StyleSheet,
@@ -28,7 +29,8 @@ export default class SearchPage extends Component {
 
     this.handleSearchStoreChange = this.handleSearchStoreChange.bind(this);
     this.handleonSubmitEditing = this.handleonSubmitEditing.bind(this);
-}
+    this.handleOnSearchClosed = this.handleOnSearchClosed.bind(this);
+  }
 
   componentDidMount() {
     SearchStore.listen(this.handleSearchStoreChange);
@@ -59,15 +61,6 @@ export default class SearchPage extends Component {
     }
   }
 
-  getMovies() {
-    if(!this.state.loading && this.state.query.length > 0) {
-      SearchActions.searchMovies(this.state.query, this.state.page)
-      this.setState({
-        loading: true,
-      });
-    }
-  }
-
   handleonSubmitEditing() {
     this.getMovies();
   }
@@ -91,6 +84,19 @@ export default class SearchPage extends Component {
     }
   }
 
+  handleOnSearchClosed() {
+    RouterActions.removeModal();
+  }
+
+  getMovies() {
+    if(!this.state.loading && this.state.query.length > 0) {
+      SearchActions.searchMovies(this.state.query, this.state.page)
+      this.setState({
+        loading: true,
+      });
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -100,6 +106,7 @@ export default class SearchPage extends Component {
             placeholder: 'Search for movies by title',
             onSubmitEditing: () => this.handleonSubmitEditing(),
             onChangeText: (text) => this.handleOnChangeText(text),
+            onSearchClosed: () => this.handleOnSearchClosed(),
           }}
           isSearchActive={true}
         />

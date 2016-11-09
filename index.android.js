@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 import RouterStore from './app/android/router/store';
+import RouterActions from './app/android/router/actions';
 
 import {
   AppRegistry,
@@ -46,14 +47,17 @@ class MovieCircle extends Component {
     }
 
     this.handleRouterStoreChange = this.handleRouterStoreChange.bind(this);
+    this.handleBackAndroid       = this.handleBackAndroid.bind(this);
   }
 
   componentDidMount() {
     RouterStore.listen(this.handleRouterStoreChange);
+    BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   componentWillUnmount() {
     RouterStore.unlisten(this.handleRouterStoreChange);
+    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
   }
 
   handleRouterStoreChange(store) {
@@ -61,6 +65,14 @@ class MovieCircle extends Component {
       modal: store.modal,
       movie: store.movies[store.movies.length-1],
     });
+  }
+
+  handleBackAndroid() {
+    if(!!this.state.movie) {
+      RouterActions.removeMovie();
+    } else if(!!this.state.modal) {
+      RouterActions.removeModal();
+    }
   }
 
   render() {
