@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
+import RouterStore from './app/android/router/store';
 
 import {
   AppRegistry,
   StyleSheet,
   View,
   UIManager,
+  Modal,
 } from 'react-native';
-
-import { COLOR, ThemeProvider } from 'react-native-material-ui';
 
 import {
   App,
-  Modal,
 } from './app/android/components';
 
 import {
@@ -19,6 +19,9 @@ import {
   MoviePage,
   SearchPage,
 } from './app/android/containers';
+
+UIManager.setLayoutAnimationEnabledExperimental &&
+UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const uiTheme = {
     palette: {
@@ -33,17 +36,60 @@ const uiTheme = {
     },
 };
 
-UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-
 class MovieCircle extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modal: undefined,
+      movie: undefined,
+    }
+
+    this.handleRouterStoreChange = this.handleRouterStoreChange.bind(this);
+  }
+
+  componentDidMount() {
+    RouterStore.listen(this.handleRouterStoreChange);
+  }
+
+  componentWillUnmount() {
+    RouterStore.unlisten(this.handleRouterStoreChange);
+  }
+
+  handleRouterStoreChange(store) {
+    this.setState({
+      modal: store.modal,
+      movie: store.movies[store.movies.length-1],
+    });
+  }
+
   render() {
     return (
       <ThemeProvider uiTheme={uiTheme}>
         <View style={styles.container}>
           <App/>
-          <Modal>
-            <SearchPage/>
-          </Modal>
+          {
+            !!this.state.movie &&
+            <Modal
+              animationType={'slide'}
+              transparent={false}
+              visible={true}
+              onRequestClose={() => console.log('closed modal')}
+            >
+              <MoviePage movieId={this.state.movie}/>
+            </Modal>
+          }
+          {
+            !!this.state.modal &&
+            <Modal
+              animationType={'slide'}
+              transparent={false}
+              visible={true}
+              onRequestClose={() => console.log('closed modal')}
+            >
+              <SearchPage/>
+            </Modal>
+          }
         </View>
       </ThemeProvider>
     );

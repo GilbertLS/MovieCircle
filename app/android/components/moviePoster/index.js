@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FitImage from 'react-native-fit-image';
+import RouterActions from '../../router/actions';
 
 import {
   StyleSheet,
@@ -23,7 +24,7 @@ export default class MoviePoster extends React.Component {
 
   handleOnPress() {
     console.log('pressed');
-    //Actions.movie({movie: this.props.movie})
+    RouterActions.addMovie(this.props.movie.id);
   }
 
   handleOnLoad() {

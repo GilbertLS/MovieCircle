@@ -1,6 +1,8 @@
 import React, { Component} from 'react';
 import { ActionButton } from 'react-native-material-ui';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import { Toolbar } from 'react-native-material-ui';
+import RouterActions from '../../router/actions';
 
 import MovieInfoStore from '../../../stores/MovieInfoStore';
 import MovieInfoActions from '../../../actions/MovieInfoActions';
@@ -26,7 +28,7 @@ export default class MoviePage extends Component {
     super(props);
 
     this.state = {
-      id: 127380,
+      id: props.movieId,
       movie: undefined,
       watched: false,
       favorite: false,
@@ -37,6 +39,7 @@ export default class MoviePage extends Component {
     this.handleOnWatchedClick       = this.handleOnWatchedClick.bind(this);
     this.handleOnWatchLaterClick    = this.handleOnWatchLaterClick.bind(this);
     this.handleOnFavoriteClick      = this.handleOnFavoriteClick.bind(this);
+    this.handleOnLeftElementPress   = this.handleOnLeftElementPress.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -118,11 +121,26 @@ export default class MoviePage extends Component {
     this.setState({ favorite: true });
   }
 
+  handleOnLeftElementPress() {
+    RouterActions.removeMovie();
+  }
+
   render() {
     const movie = this.state.movie;
 
     return (
       <View style={styles.container}>
+        <Toolbar
+          leftElement='arrow-back'
+          onLeftElementPress={() => this.handleOnLeftElementPress()}
+          style={{
+            container: {
+              backgroundColor: 'rgba(0,0,0,0)',
+              position: 'absolute',
+              zIndex: 100,
+            },
+          }}
+        />
         {
           !!movie &&
           <View style={styles.container}>
@@ -169,6 +187,7 @@ export default class MoviePage extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#222',
     flex: 1,
     flexDirection: 'column',
   },

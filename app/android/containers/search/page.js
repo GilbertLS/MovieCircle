@@ -116,7 +116,11 @@ export default class SearchPage extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, flexDirection: 'column'},
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#222',
+  },
   indicatorContainer: {
     paddingTop: 20,
   },
