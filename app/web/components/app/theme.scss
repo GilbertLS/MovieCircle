@@ -4,6 +4,10 @@
   overflow: visible;
 
   .navDrawer {
+    .scrim {
+      position:fixed;
+    }
+    
     .drawerContent {
       background-color: #222;
       border-right: none;
