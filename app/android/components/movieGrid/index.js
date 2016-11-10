@@ -27,7 +27,6 @@ export default class MovieGrid extends React.Component {
       return;
 
     const rows = createRows(nextProps.movies);
-    console.log(rows);
     this.setState({
       dataSource: ds.cloneWithRows(rows),
     });

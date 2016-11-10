@@ -103,7 +103,7 @@ export default class Navigation extends React.Component {
 
     if(!this.props.isLoggedIn) {
       list = [
-        { type: 'button', label: 'Sign In With Facebook', iconName: 'sc-facebook', onclick: () => this.handleOnClick('movies') },
+        { type: 'button', label: 'Sign In With Facebook', iconName: 'sc-facebook', onclick: () => this.handleSignInOnClick() },
         { type: 'divider' },
         { type: 'button', label:'About', iconName: 'help' }
       ]
