@@ -5,7 +5,6 @@ import RouterActions from '../../router/actions';
 import {
   StyleSheet,
   View,
-  StatusBar,
   Text,
   DrawerLayoutAndroid,
 } from 'react-native';
@@ -54,7 +53,6 @@ export default class App extends Component {
           }}
           drawerBackgroundColor='#222'
           style={styles.layout}>
-            <StatusBar backgroundColor='#4F2C94'/>
             <Toolbar
               leftElement='menu'
               centerElement='MovieCircle'

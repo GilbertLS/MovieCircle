@@ -9,6 +9,8 @@ import {
   View,
   UIManager,
   Modal,
+  BackAndroid,
+  StatusBar,
 } from 'react-native';
 
 import {
@@ -68,17 +70,15 @@ class MovieCircle extends Component {
   }
 
   handleBackAndroid() {
-    if(!!this.state.movie) {
-      RouterActions.removeMovie();
-    } else if(!!this.state.modal) {
-      RouterActions.removeModal();
-    }
+    console.log('hello')
+    return false;
   }
 
   render() {
     return (
       <ThemeProvider uiTheme={uiTheme}>
         <View style={styles.container}>
+          <StatusBar backgroundColor='#4F2C94'/>
           <App/>
           {
             !!this.state.movie &&
@@ -86,7 +86,7 @@ class MovieCircle extends Component {
               animationType={'slide'}
               transparent={false}
               visible={true}
-              onRequestClose={() => console.log('closed modal')}
+              onRequestClose={() => RouterActions.removeMovie()}
             >
               <MoviePage movieId={this.state.movie}/>
             </Modal>
@@ -97,7 +97,7 @@ class MovieCircle extends Component {
               animationType={'slide'}
               transparent={false}
               visible={true}
-              onRequestClose={() => console.log('closed modal')}
+              onRequestClose={() => RouterActions.removeModal()}
             >
               <SearchPage/>
             </Modal>
