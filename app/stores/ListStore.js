@@ -1,6 +1,5 @@
 import alt from '../alt';
 import ListActions from '../actions/ListActions';
-import UserActions from '../actions/UserActions';
 
 class ListStore {
   constructor() {
@@ -8,7 +7,7 @@ class ListStore {
       _handleGetFavoriteMovies: ListActions.GET_FAVORITE_MOVIES,
       _handleGetWatchedMovies: ListActions.GET_WATCHED_MOVIES,
       _handleGetWatchLaterMovies: ListActions.GET_WATCH_LATER_MOVIES,
-      _handleLogout: UserActions.LOGOUT_FACEBOOK,
+      _handleClear: ListActions.CLEAR,
     });
 
     this.exportPublicMethods({
@@ -42,7 +41,7 @@ class ListStore {
     });
   }
 
-  _handleLogout() {
+  _handleClear() {
     this.setState({
       favorites: [],
       watched: [],

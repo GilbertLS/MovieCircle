@@ -1,9 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import FacebookStore from '../../../stores/FacebookStore';
-import FacebookActions from '../../../actions/FacebookActions';
 import UserStore from '../../../stores/UserStore';
-import UserActions from '../../../actions/UserActions';
 
 import {
   AppBar,
@@ -27,42 +24,25 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       drawerActive: false,
-      isLoggedIn: UserStore.getLoggedIn(),
+      isLoggedIn: UserStore.getIsLoggedIn(),
     }
 
-    this.toggleDrawerActive   = this.toggleDrawerActive.bind(this);
-    this.handleFacebookChange = this.handleFacebookChange.bind(this);
-    this.handleAuthChange     = this.handleAuthChange.bind(this);
-  }
-
-  componentWillMount() {
-    FacebookActions.initFacebook();
+    this.toggleDrawerActive    = this.toggleDrawerActive.bind(this);
+    this.handleUserStoreChange = this.handleUserStoreChange.bind(this);
   }
 
   componentDidMount() {
-    FacebookStore.listen(this.handleFacebookChange);
-    UserStore.listen(this.handleAuthChange);
+    UserStore.listen(this.handleUserStoreChange);
   }
 
   componentWillUnmount() {
-    FacebookStore.unlisten(this.handleFacebookChange);
-    UserStore.unlisten(this.handleAuthChange);
+    UserStore.unlisten(this.handleUserStoreChange);
   }
 
-  handleFacebookChange(state) {
-    const auth = FacebookStore.getAuth();
-    if(auth) {
-      UserActions.loginFacebook(auth);
-    }
-  }
-
-  handleAuthChange(state) {
-    const isLoggedIn = UserStore.getLoggedIn();
-    if(this.state.isLoggedIn !== isLoggedIn) {
-      this.setState({
-        isLoggedIn: UserStore.getLoggedIn(),
-      });
-    }
+  handleUserStoreChange(state) {
+    this.setState({
+      isLoggedIn: UserStore.getIsLoggedIn(),
+    });
   }
 
   toggleDrawerActive() {
@@ -89,7 +69,7 @@ export default class App extends React.Component {
             <SearchInput/>
           </AppBar>
           <div className={style.childContainer}>
-          {this.props.children && React.cloneElement(this.props.children, {
+          {React.cloneElement(this.props.children, {
             isLoggedIn: this.state.isLoggedIn
           })}
           </div>

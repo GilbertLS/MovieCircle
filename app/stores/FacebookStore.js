@@ -7,12 +7,12 @@ class FacebookStore {
       _handleGetLoginStatus: FacebookActions.GET_LOGIN_STATUS,
       _handleLogin: FacebookActions.LOGIN,
       _handleLogout: FacebookActions.LOGOUT,
-      _handleVerifyToken: FacebookActions.VERIFY_TOKEN,
+      _handleGetMe: FacebookActions.GET_ME,
     });
 
     this.exportPublicMethods({
       getMe: this.getMe,
-      getLoggedIn: this.getLoggedIn,
+      getIsLoggedIn: this.getIsLoggedIn,
       getAuth: this.getAuth,
     });
 
@@ -27,23 +27,25 @@ class FacebookStore {
   }
 
   _handleLogin(response) {
-    console.log("login or getloginstatus", response);
+    console.log('login or getloginstatus', response);
     this.setState({
-      auth: response.auth.authResponse,
-      me: response.me,
+      auth: response,
     });
   }
 
   _handleLogout(response) {
-    console.log("logout", response);
+    console.log('logout', response);
     this.setState({
       auth: undefined,
       me: undefined,
     });
   }
 
-  _handleVerifyToken(verified) {
-    console.log('verified');
+  _handleGetMe(response) {
+    console.log('getme', response);
+    this.setState({
+      me: response,
+    });
   }
 
   getAuth() {
@@ -54,8 +56,8 @@ class FacebookStore {
     return this.state.me;
   }
 
-  getLoggedIn() {
-    return this.state.me && this.state.me.id;
+  getIsLoggedIn() {
+    return this.state.auth && this.state.auth.accessToken;
   }
 }
 

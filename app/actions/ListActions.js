@@ -14,6 +14,10 @@ class ListActions {
   getWatchLaterMovies(page) {
     return callUserRouteDispatch(page, UserAPI.getWatchLaterMovies);
   }
+
+  clear() {
+    return true;
+  }
 }
 
 const callUserRouteDispatch = function(page, userAPIFunction) {

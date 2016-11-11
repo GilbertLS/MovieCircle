@@ -7,7 +7,7 @@ const {
 } = FBSDK;
 
 class FacebookActions {
-  initFacebook() {
+  init() {
     return true;
   }
 
@@ -24,7 +24,7 @@ class FacebookActions {
               (data) => {
                 dispatch({auth: { authResponse: {accessToken: data}}});
               }
-            )
+            );
           }
         },
       );
@@ -33,16 +33,6 @@ class FacebookActions {
 
   logout() {
     return true;
-  }
-
-  verifyToken(accessToken) {
-    return (dispatch) => {
-      loginAPI.facebookLogin(accessToken, (response) => {
-        console.log('verify', response);
-      });
-
-      dispatch(true);
-    }
   }
 }
 

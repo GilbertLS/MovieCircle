@@ -9,7 +9,7 @@ class UserStore {
     });
 
     this.exportPublicMethods({
-      getLoggedIn: this.getLoggedIn,
+      getIsLoggedIn: this.getIsLoggedIn,
     });
 
     this.state = {
@@ -29,7 +29,7 @@ class UserStore {
     });
   }
 
-  getLoggedIn() {
+  getIsLoggedIn() {
     return this.state.isLoggedIn;
   }
 }

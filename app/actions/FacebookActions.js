@@ -2,7 +2,7 @@ import alt from '../alt';
 const APP_ID = '1065027943579868';
 
 class FacebookActions {
-  initFacebook() {
+  init() {
     window.fbAsyncInit = () => {
       FB.init({
         appId      : APP_ID,
@@ -10,18 +10,9 @@ class FacebookActions {
         version    : 'v2.8'
       });
 
-      // after initialization, get the login status
+      //After initialization, get the login status
       this.getLoginStatus();
     };
-
-    // async load facebook-jssdk
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
 
     return true;
   }
@@ -29,31 +20,25 @@ class FacebookActions {
   getLoginStatus() {
     return (dispatch) => {
       window.FB.getLoginStatus((response) => {
-        if(response.status == 'connected') {
-          window.FB.api('/me', {fields: ['first_name', 'last_name', 'picture']}, (meResponse) => {
-            dispatch({
-              auth: response,
-              me: meResponse,
-            });
-          });
+        if(response.status == 'connected' && !!response.authResponse) {
+          dispatch(response.authResponse);
+        } else {
+          dispatch(undefined);
         }
       });
-    }
+    };
   }
 
   login() {
     return (dispatch) => {
       window.FB.login((response) => {
-        if(response.status == 'connected') {
-          window.FB.api('/me', {fields: ['first_name', 'last_name', 'picture']}, (meResponse) => {
-            dispatch({
-              auth: response,
-              me: meResponse,
-            });
-          });
+        if(response.status == 'connected' && !!response.authResponse) {
+          dispatch(response.authResponse);
+        } else {
+          dispatch(undefined);
         }
       });
-    }
+    };
   }
 
   logout() {
@@ -61,17 +46,19 @@ class FacebookActions {
       window.FB.logout((response) => {
         dispatch(response);
       });
-    }
+    };
   }
 
-  verifyToken(accessToken) {
+  getMe() {
     return (dispatch) => {
-      loginAPI.facebookLogin(accessToken, (response) => {
-        console.log('verify', response);
+      window.FB.api('/me', {fields: ['first_name', 'last_name', 'picture']}, (response) => {
+        if(!!response && response.id) {
+          dispatch(response);
+        } else {
+          dispatch(undefined);
+        }
       });
-
-      dispatch(true);
-    }
+    };
   }
 }
 

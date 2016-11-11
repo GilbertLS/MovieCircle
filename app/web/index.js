@@ -11,6 +11,7 @@ import {
   App,
   AuthComponent,
 } from './components';
+
 import {
   LoginPage,
   MoviesPage,
@@ -18,6 +19,15 @@ import {
   SearchPage,
   FavoritesPage,
 } from './containers';
+
+//Store Actors
+import FacebookStore from '../stores/FacebookStore';
+import FacebookActions from '../actions/FacebookActions';
+import FacebookActor from '../actors/FacebookActor';
+
+FacebookActions.init(); //Make sure FBJSDK is initialized
+//Actor takes care of login/logout
+FacebookStore.listen((store) => FacebookActor(store));
 
 //Routes
 const routes = {
@@ -36,11 +46,6 @@ const routes = {
     },
   ]
 };
-
-//React Hot Loader
-if (module.hot) {
-  module.hot.accept();
-}
 
 //Render the router
 ReactDOM.render((

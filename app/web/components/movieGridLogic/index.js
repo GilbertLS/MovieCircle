@@ -61,7 +61,7 @@ export default class MovieGridLogic extends React.Component {
     }
   }
 
-  getMovies() {
+  getMovies(dontGetNewPage) {
     let currentPage = [];
     if(this.props.store == 'list') {
       currentPage = ListStore[getFunctionName(this.state.listName, this.props.store)](this.state.page);
@@ -84,7 +84,7 @@ export default class MovieGridLogic extends React.Component {
         loading: false,
         end: true,
       });
-    } else if(!this.state.loading) {
+    } else if(!this.state.loading && !dontGetNewPage) {
       //Page does not exist yet
       //Perform action to get page
       if(this.props.store == 'list') {
@@ -101,7 +101,7 @@ export default class MovieGridLogic extends React.Component {
 
   handleMovieStoreChange(store) {
     console.log('handleMovieStoreChange')
-    this.getMovies();
+    this.getMovies(true);
   }
 
   handleScroll() {

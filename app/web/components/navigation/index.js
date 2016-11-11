@@ -46,7 +46,6 @@ export default class Navigation extends React.Component {
 
   handleSignOutOnClick() {
     FacebookActions.logout();
-    UserActions.logoutFacebook();
   }
 
   handleSignInOnClick() {
