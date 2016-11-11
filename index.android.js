@@ -23,9 +23,16 @@ import {
   SearchPage,
 } from './app/android/containers';
 
+//Store Actors
+import FacebookStore from './app/stores/FacebookStore';
+import FacebookActions from './app/actions/FacebookActions';
+import FacebookActor from './app/actors/FacebookActor';
+
+//Allow Layout Animations
 UIManager.setLayoutAnimationEnabledExperimental &&
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
+//Set Theme For react-native-material-ui
 const uiTheme = {
     palette: {
         primaryColor: '#5e35b1',
@@ -55,11 +62,17 @@ class MovieCircle extends Component {
   componentDidMount() {
     RouterStore.listen(this.handleRouterStoreChange);
     BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
+
+    //Actor takes care of login/logout
+    FacebookStore.listen(FacebookActor);
+    FacebookActions.getLoginStatus();
   }
 
   componentWillUnmount() {
     RouterStore.unlisten(this.handleRouterStoreChange);
     BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
+
+    FacebookStore.unlisten(FacebookActor);
   }
 
   handleRouterStoreChange(store) {

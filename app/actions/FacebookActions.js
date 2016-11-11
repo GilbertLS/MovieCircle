@@ -51,7 +51,8 @@ class FacebookActions {
 
   getMe() {
     return (dispatch) => {
-      window.FB.api('/me', {fields: ['first_name', 'last_name', 'picture']}, (response) => {
+      window.FB.api('/me', {fields: ['name', 'friends', 'picture']},
+      (response) => {
         if(!!response && response.id) {
           dispatch(response);
         } else {

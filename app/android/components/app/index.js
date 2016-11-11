@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons';
 import RouterActions from '../../router/actions';
+import UserStore from '../../../stores/UserStore';
 
 import {
   StyleSheet,
@@ -25,9 +26,28 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isLoggedIn: UserStore.getIsLoggedIn(),
+    };
+
+    this.handleUserStoreChange     = this.handleUserStoreChange.bind(this);
     this.handleOnLeftElementPress  = this.handleOnLeftElementPress.bind(this);
     this.handleOnRightElementPress = this.handleOnRightElementPress.bind(this);
     this.handleOnClick             = this.handleOnClick.bind(this);
+  }
+
+  componentDidMount() {
+    UserStore.listen(this.handleUserStoreChange);
+  }
+
+  componentWillUnmount() {
+    UserStore.unlisten(this.handleUserStoreChange);
+  }
+
+  handleUserStoreChange() {
+    this.setState({
+      isLoggedIn: UserStore.getIsLoggedIn(),
+    });
   }
 
   handleOnLeftElementPress() {
@@ -49,7 +69,11 @@ export default class App extends Component {
           drawerWidth={300}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => {
-            return <Navigation isLoggedIn={false} onClick={this.handleOnClick}/>
+            return (
+              <Navigation
+                isLoggedIn={this.state.isLoggedIn}
+                onClick={this.handleOnClick}/>
+            );
           }}
           drawerBackgroundColor='#222'
           style={styles.layout}>

@@ -42,7 +42,6 @@ export default class Navigation extends React.Component {
 
   handleSignOutOnClick() {
     FacebookActions.logout();
-    UserActions.logoutFacebook();
   }
 
   handleSignInOnClick() {
@@ -96,7 +95,7 @@ export default class Navigation extends React.Component {
       { type: 'button', label: 'Watch Later', iconName: 'schedule' },
       { type: 'divider' },
       { type: 'title', label: 'Your Account' },
-      { type: 'button', label: 'Sign Out', iconName: 'cancel'},
+      { type: 'button', label: 'Sign Out', iconName: 'cancel', onclick: () => this.handleSignOutOnClick()},
       { type: 'divider' },
       { type: 'button', label:'About', iconName: 'help' },
     ];

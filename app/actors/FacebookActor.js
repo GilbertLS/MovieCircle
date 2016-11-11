@@ -9,8 +9,8 @@ export default function(store) {
   const storeIsLoggedIn = FacebookStore.getIsLoggedIn();
 
   if(!!storeIsLoggedIn && !isLoggedIn) {
-    UserActions.loginFacebook(FacebookStore.getAuth());
-    FacebookActions.getMe();
+    UserActions.loginFacebook.defer(FacebookStore.getAuth());
+    FacebookActions.getMe.defer();
   }
 
   if(!storeIsLoggedIn && !!isLoggedIn) {
