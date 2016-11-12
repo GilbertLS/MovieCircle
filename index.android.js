@@ -21,6 +21,8 @@ import {
   MoviesPage,
   MoviePage,
   SearchPage,
+  AboutPage,
+  FavoritesPage,
 } from './app/android/containers';
 
 //Store Actors
@@ -88,6 +90,20 @@ class MovieCircle extends Component {
   }
 
   render() {
+    const modal = function(key) {
+      switch(key) {
+        case 'search':
+          return <SearchPage/>;
+          break;
+        case 'about':
+          return <AboutPage/>;
+          break;
+        case 'favorites':
+          return <FavoritesPage/>;
+          break;
+      }
+    }
+
     return (
       <ThemeProvider uiTheme={uiTheme}>
         <View style={styles.container}>
@@ -112,7 +128,7 @@ class MovieCircle extends Component {
               visible={true}
               onRequestClose={() => RouterActions.removeModal()}
             >
-              <SearchPage/>
+              { modal(this.state.modal) }
             </Modal>
           }
         </View>

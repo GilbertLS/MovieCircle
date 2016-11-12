@@ -90,21 +90,21 @@ export default class Navigation extends React.Component {
 
     let list = [
       { type: 'title', label: 'Your Lists' },
-      { type: 'button', label: 'Favorites', iconName: 'favorite', onclick: () => this.handleOnClick('movie') },
+      { type: 'button', label: 'Favorites', iconName: 'favorite', onclick: () => this.handleOnClick('favorites')},
       { type: 'button', label: 'Watched', iconName: 'visibility' },
       { type: 'button', label: 'Watch Later', iconName: 'schedule' },
       { type: 'divider' },
       { type: 'title', label: 'Your Account' },
       { type: 'button', label: 'Sign Out', iconName: 'cancel', onclick: () => this.handleSignOutOnClick()},
       { type: 'divider' },
-      { type: 'button', label:'About', iconName: 'help' },
+      { type: 'button', label:'About', iconName: 'help', onclick: () => this.handleOnClick('about')},
     ];
 
     if(!this.props.isLoggedIn) {
       list = [
         { type: 'button', label: 'Sign In With Facebook', iconName: 'sc-facebook', onclick: () => this.handleSignInOnClick() },
         { type: 'divider' },
-        { type: 'button', label:'About', iconName: 'help' }
+        { type: 'button', label:'About', iconName: 'help', onclick: () => this.handleOnClick('about')},
       ]
     }
 

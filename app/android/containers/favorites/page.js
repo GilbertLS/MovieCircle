@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import { Toolbar } from 'react-native-material-ui';
+import RouterActions from '../../router/actions';
 
 import {
   StyleSheet,
@@ -14,14 +16,25 @@ import {
   MovieGrid,
 } from '../../components';
 
-export default class MoviesPage extends Component {
+export default class FavoritesPage extends Component {
   constructor(props) {
     super(props);
+
+    this.handleOnLeftElementPress = this.handleOnLeftElementPress.bind(this);
+  }
+
+  handleOnLeftElementPress() {
+    RouterActions.removeModal();
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Toolbar
+          leftElement='arrow-back'
+          centerElement='Your Lists'
+          onLeftElementPress={this.handleOnLeftElementPress}
+        />
         <ScrollableTabView
           style={styles.container}
           tabBarUnderlineStyle={styles.underline}
@@ -29,17 +42,14 @@ export default class MoviesPage extends Component {
           tabBarInactiveTextColor='rgba(255, 255, 255, 0.7)'
           tabBarActiveTextColor='white'
           tabBarTextStyle={{fontSize: 14, fontWeight: '500'}}>
-          <View style={styles.page} tabLabel='POPULAR'>
-            <MovieGridLogic listName='popular' store='movie'/>
+          <View style={styles.page} tabLabel='FAVORITES'>
+            <MovieGridLogic listName='favorites' store='list'/>
           </View>
-          <View style={styles.page} tabLabel='TOP RATED'>
-            <MovieGridLogic listName='top_rated' store='movie'/>
+          <View style={styles.page} tabLabel='WATCHED'>
+            <MovieGridLogic listName='watched' store='list'/>
           </View>
-          <View style={styles.page} tabLabel='PLAYING'>
-            <MovieGridLogic listName='now_playing' store='movie'/>
-          </View>
-          <View style={styles.page} tabLabel='UPCOMING'>
-            <MovieGridLogic listName='upcoming' store='movie'/>
+          <View style={styles.page} tabLabel='WATCH LATER'>
+            <MovieGridLogic listName='watch_later' store='list'/>
           </View>
         </ScrollableTabView>
       </View>
@@ -50,6 +60,7 @@ export default class MoviesPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#222',
   },
   page: {
     flexDirection: 'column',
