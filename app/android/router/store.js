@@ -8,6 +8,7 @@ class RouterStore {
       _handleRemoveModal: Actions.REMOVE_MODAL,
       _handleAddMovie: Actions.ADD_MOVIE,
       _handleRemoveMovie: Actions.REMOVE_MOVIE,
+      _handleReplaceMovie: Actions.REPLACE_MOVIE,
     });
 
     this.exportPublicMethods({
@@ -32,10 +33,9 @@ class RouterStore {
     });
   }
 
-  _handleAddMovie(id) {
-    console.log(id);
+  _handleAddMovie(object) {
     this.setState({
-      movies: this.state.movies.concat([id]),
+      movies: this.state.movies.concat([object]),
     });
   }
 
@@ -43,6 +43,12 @@ class RouterStore {
     this.setState({
       movies: this.state.movies.slice(0, this.state.movies.length-1),
     })
+  }
+
+  _handleReplaceMovie(object) {
+    this.setState({
+        movies: this.state.movies.slice(0, this.state.movies.length-1).concat([object]),
+    });
   }
 }
 

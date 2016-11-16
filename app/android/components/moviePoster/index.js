@@ -23,12 +23,10 @@ export default class MoviePoster extends React.Component {
   }
 
   handleOnPress() {
-    console.log('pressed');
-    RouterActions.addMovie(this.props.movie.id);
+    RouterActions.addMovie(this.props.movie.id, this.props.movie);
   }
 
   handleOnLoad() {
-    console.log('hello')
     this.setState({
       loaded: true,
     })
@@ -56,7 +54,7 @@ export default class MoviePoster extends React.Component {
 
 const styles = StyleSheet.create({
   poster: {
-    flex: 1,
+    flex: 0.5,
     paddingLeft: 3,
     paddingTop: 3,
   },

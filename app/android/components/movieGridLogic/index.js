@@ -56,7 +56,6 @@ export default class MovieGridLogic extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(this.state.listName !== prevState.listName) {
-      console.log('componentDidUpdate');
       this.getMovies();
     }
   }
@@ -105,12 +104,7 @@ export default class MovieGridLogic extends React.Component {
 
   handleScroll() {
     //Needs to be written for scrollview
-    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-    if (!this.state.loading && !this.state.end && (scrollTop + window.innerHeight) >= scrollHeight) {
-      console.log('handleScroll');
-      this.getMovies();
-    }
+
   }
 
   render() {

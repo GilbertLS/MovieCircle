@@ -85,7 +85,6 @@ class MovieCircle extends Component {
   }
 
   handleBackAndroid() {
-    console.log('hello')
     return false;
   }
 
@@ -104,6 +103,8 @@ class MovieCircle extends Component {
       }
     }
 
+    console.log('state', this.state.movie)
+
     return (
       <ThemeProvider uiTheme={uiTheme}>
         <View style={styles.container}>
@@ -117,7 +118,10 @@ class MovieCircle extends Component {
               visible={true}
               onRequestClose={() => RouterActions.removeMovie()}
             >
-              <MoviePage movieId={this.state.movie}/>
+              <MoviePage
+                movieId={this.state.movie.movieId}
+                movieObject={this.state.movie.movieObject}
+              />
             </Modal>
           }
           {

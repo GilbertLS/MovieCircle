@@ -47,6 +47,10 @@ export default class MovieGrid extends React.Component {
                   )
                 })
               }
+              {
+                array.length == 1 &&
+                <View style={{flex: 0.5}}></View>
+              }
             </View>
           )
         }}

@@ -9,12 +9,22 @@ class RouterActions {
     return true;
   }
 
-  addMovie(movieId) {
-    return movieId;
+  addMovie(movieId, movieObject) {
+    return {
+      movieId: movieId,
+      movieObject: movieObject,
+    };
   }
 
   removeMovie() {
     return true;
+  }
+
+  replaceMovie(movieId, movieObject) {
+    return {
+      movieId: movieId,
+      movieObject: movieObject,
+    };
   }
 }
 

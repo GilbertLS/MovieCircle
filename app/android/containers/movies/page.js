@@ -28,7 +28,8 @@ export default class MoviesPage extends Component {
           tabBarBackgroundColor='#5e35b1'
           tabBarInactiveTextColor='rgba(255, 255, 255, 0.7)'
           tabBarActiveTextColor='white'
-          tabBarTextStyle={{fontSize: 14, fontWeight: '500'}}>
+          tabBarTextStyle={{fontSize: 14, fontWeight: '500'}}
+        >
           <View style={styles.page} tabLabel='POPULAR'>
             <MovieGridLogic listName='popular' store='movie'/>
           </View>
