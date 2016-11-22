@@ -37,11 +37,12 @@ export default class MoviePage extends Component {
       watchLater: false,
     }
 
-    this.handleMovieInfoStoreChange = this.handleMovieInfoStoreChange.bind(this);
-    this.handleOnWatchedClick       = this.handleOnWatchedClick.bind(this);
-    this.handleOnWatchLaterClick    = this.handleOnWatchLaterClick.bind(this);
-    this.handleOnFavoriteClick      = this.handleOnFavoriteClick.bind(this);
-    this.handleOnLeftElementPress   = this.handleOnLeftElementPress.bind(this);
+    this.handleMovieInfoStoreChange  = this.handleMovieInfoStoreChange.bind(this);
+    this.handleOnWatchedClick        = this.handleOnWatchedClick.bind(this);
+    this.handleOnWatchLaterClick     = this.handleOnWatchLaterClick.bind(this);
+    this.handleOnFavoriteClick       = this.handleOnFavoriteClick.bind(this);
+    this.handleOnLeftElementPress    = this.handleOnLeftElementPress.bind(this);
+    this.handleOnActionButtonPress = this.handleOnActionButtonPress.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -129,6 +130,21 @@ export default class MoviePage extends Component {
     RouterActions.removeMovie();
   }
 
+  handleOnActionButtonPress(key) {
+    console.log(key);
+    switch(key) {
+      case 'favorite':
+        this.handleOnFavoriteClick();
+        break;
+      case 'visibility':
+        this.handleOnWatchedClick();
+        break;
+      case 'watch-later':
+        this.handleOnWatchLaterClick();
+        break;
+    }
+  }
+
   render() {
     const movie = this.state.movie;
 
@@ -175,9 +191,10 @@ export default class MoviePage extends Component {
           </View>
         }
         {
-          !!movie &&
+          !!movie &&  !!this.props.isLoggedIn &&
           <ActionButton
             icon='add'
+            onPress={(key) => this.handleOnActionButtonPress(key)}
             actions={[
               {
                 icon: 'favorite',

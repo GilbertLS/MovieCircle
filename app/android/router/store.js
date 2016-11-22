@@ -46,9 +46,11 @@ class RouterStore {
   }
 
   _handleReplaceMovie(object) {
-    this.setState({
-        movies: this.state.movies.slice(0, this.state.movies.length-1).concat([object]),
-    });
+    if(this.state.movies.length > 0) {
+      this.setState({
+          movies: this.state.movies.slice(0, this.state.movies.length-1).concat([object]),
+      });
+    }
   }
 }
 

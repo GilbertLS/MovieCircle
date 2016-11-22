@@ -22,6 +22,7 @@ export default class Cast extends Component {
 
     return (
       <ListView
+        enableEmptySections={true}
         dataSource={this.state.dataSource}
         renderRow={(member) => {
           let rowStyles = [styles.row];
@@ -32,19 +33,14 @@ export default class Cast extends Component {
           return (
             <View style={rowStyles} key={member.credit_id}>
               <View>
-              {
-                !!member.profile_path &&
-                <Image
-                  source={{ uri: 'https://image.tmdb.org/t/p/w92/' + member.profile_path}}
-                  style={styles.portrait}
-                />
-              }
+              <Image
+                source={{ uri: 'https://image.tmdb.org/t/p/w92/' + member.profile_path}}
+                style={styles.portrait}
+              />
               </View>
-              <View style={styles.rowName}>
-                <Text style={styles.rowText}>{member.name}</Text>
-              </View>
-              <View style={styles.rowCharacter}>
-                <Text style={styles.rowText}>as {member.character}</Text>
+              <View style={styles.container}>
+                <Text style={styles.rowName}>{member.name}</Text>
+                <Text style={styles.rowCharacter}>{member.character}</Text>
               </View>
             </View>
           )
@@ -67,15 +63,18 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     alignItems: 'center',
   },
-  rowName: {
+  container: {
     flex: 1,
     marginLeft: 20,
   },
-  rowCharacter: {
-    flex: 1,
+  rowName: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: '500',
   },
-  rowText: {
-    fontSize: 14,
-    color: 'white'
+  rowCharacter: {
+    fontSize: 16,
+    color: 'rgba(255,255,255,0.5)',
+    fontWeight: '300',
   }
 });

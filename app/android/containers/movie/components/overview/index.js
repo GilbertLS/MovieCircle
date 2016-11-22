@@ -52,13 +52,13 @@ export default class Overview extends Component {
           <View>
             <Image
               style={styles.backdrop}
-              source={{ uri: 'http://image.tmdb.org/t/p/w1280' + movie.backdrop_path}}
+              source={{ uri: 'http://image.tmdb.org/t/p/w780' + movie.backdrop_path}}
             >
               {
                 !!movie && !!movie.videos && movie.videos.results.length > 0 &&
                 <ActionButton
                   icon='play-arrow'
-                  style={{container: {backgroundColor: 'grey'}}}
+                  style={{container: {backgroundColor: 'rgba(0,0,0,0.6)'}}}
                   onPress={() => Linking.openURL('https://www.youtube.com/watch?v=' + movie.videos.results[0].key)}
                 />
               }
@@ -66,9 +66,9 @@ export default class Overview extends Component {
           </View>
         }
         {
-          !!movie && !!movie.average_rating &&
+          !!movie && !!movie.vote_average &&
           <View style={styles.container}>
-            <View style={styles.stars}>{this.renderStars(movie.average_rating/2)}</View>
+            <View style={styles.stars}>{this.renderStars()}</View>
           </View>
         }
         <View style={styles.container}>
@@ -86,27 +86,30 @@ export default class Overview extends Component {
           <Text style={styles.overview}>{movie.title}</Text>
         </View>
         {
-          !!movie & !!movie.release_date &&
+          !!movie &&
           <View style={styles.container}>
             <Text style={styles.tagline}>Release Date:</Text>
             <Text style={styles.overview}>{movie.release_date}</Text>
           </View>
         }
         {
-          !!movie && !!movie.genres && movie.genres.length > 0 &&
+          !!movie &&
           <View style={styles.container}>
             <Text style={styles.tagline}>Genres:</Text>
-            <Text style={styles.overview}>
-              {
-                movie.genres.map((genre) => {
-                  return genre.name;
-                }).join(', ')
-              }
-            </Text>
+            {
+              !!movie.genres && movie.genres.length > 0 &&
+              <Text style={styles.overview}>
+                {
+                  movie.genres.map((genre) => {
+                    return genre.name;
+                  }).join(', ')
+                }
+              </Text>
+            }
           </View>
         }
         {
-          !!movie && !!movie.runtime &&
+          !!movie &&
           <View style={styles.container}>
             <Text style={styles.tagline}>Runtime:</Text>
             <Text style={styles.overview}>{movie.runtime} minutes</Text>
@@ -132,8 +135,7 @@ const styles = StyleSheet.create({
   },
   backdrop: {
     height: 200,
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   trailer: {
     color: 'white',

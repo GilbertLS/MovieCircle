@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 import RouterStore from './app/android/router/store';
 import RouterActions from './app/android/router/actions';
+import UserStore from './app/stores/UserStore';
 
 import {
   AppRegistry,
@@ -55,14 +56,17 @@ class MovieCircle extends Component {
     this.state = {
       modal: undefined,
       movie: undefined,
+      isLoggedIn: UserStore.getIsLoggedIn(),
     }
 
     this.handleRouterStoreChange = this.handleRouterStoreChange.bind(this);
+    this.handleUserStoreChange   = this.handleUserStoreChange.bind(this);
     this.handleBackAndroid       = this.handleBackAndroid.bind(this);
   }
 
   componentDidMount() {
     RouterStore.listen(this.handleRouterStoreChange);
+    UserStore.listen(this.handleUserStoreChange);
     BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
 
     //Actor takes care of login/logout
@@ -72,6 +76,7 @@ class MovieCircle extends Component {
 
   componentWillUnmount() {
     RouterStore.unlisten(this.handleRouterStoreChange);
+    UserStore.unlisten(this.handleUserStoreChange);
     BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
 
     FacebookStore.unlisten(FacebookActor);
@@ -81,6 +86,12 @@ class MovieCircle extends Component {
     this.setState({
       modal: store.modal,
       movie: store.movies[store.movies.length-1],
+    });
+  }
+
+  handleUserStoreChange() {
+    this.setState({
+      isLoggedIn: UserStore.getIsLoggedIn(),
     });
   }
 
@@ -109,7 +120,7 @@ class MovieCircle extends Component {
       <ThemeProvider uiTheme={uiTheme}>
         <View style={styles.container}>
           <StatusBar backgroundColor='#4F2C94'/>
-          <App/>
+          <App isLoggedIn={this.state.isLoggedIn}/>
           {
             !!this.state.movie &&
             <Modal
@@ -121,6 +132,7 @@ class MovieCircle extends Component {
               <MoviePage
                 movieId={this.state.movie.movieId}
                 movieObject={this.state.movie.movieObject}
+                isLoggedIn={this.state.isLoggedIn}
               />
             </Modal>
           }
