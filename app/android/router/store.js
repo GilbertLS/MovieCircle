@@ -34,9 +34,17 @@ class RouterStore {
   }
 
   _handleAddMovie(object) {
-    this.setState({
-      movies: this.state.movies.concat([object]),
-    });
+    const length = this.state.movies.length
+
+    if(length < 10) {
+      this.setState({
+        movies: this.state.movies.concat([object]),
+      });
+    } else {
+      this.setState({
+        movies: this.state.movies.slice(1, length).concat([object]),
+      });
+    }
   }
 
   _handleRemoveMovie() {
@@ -46,7 +54,8 @@ class RouterStore {
   }
 
   _handleReplaceMovie(object) {
-    if(this.state.movies.length > 0) {
+    currentMovie = this.state.movies[this.state.movies.length-1]
+    if(!!currentMovie && currentMovie.id === object.id) {
       this.setState({
           movies: this.state.movies.slice(0, this.state.movies.length-1).concat([object]),
       });

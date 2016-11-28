@@ -23,7 +23,7 @@ export default class MoviePoster extends React.Component {
   }
 
   handleOnPress() {
-    RouterActions.addMovie(this.props.movie.id, this.props.movie);
+    RouterActions.addMovie(this.props.movie);
   }
 
   handleOnLoad() {

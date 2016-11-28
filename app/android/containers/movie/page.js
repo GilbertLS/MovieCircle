@@ -30,8 +30,8 @@ export default class MoviePage extends Component {
     super(props);
 
     this.state = {
-      id: props.movieId,
-      movie: props.movieObject,
+      movie: props.movie,
+      id: props.movie.id,
       watched: false,
       favorite: false,
       watchLater: false,
@@ -43,32 +43,6 @@ export default class MoviePage extends Component {
     this.handleOnFavoriteClick       = this.handleOnFavoriteClick.bind(this);
     this.handleOnLeftElementPress    = this.handleOnLeftElementPress.bind(this);
     this.handleOnActionButtonPress = this.handleOnActionButtonPress.bind(this)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //If the movie id param has changed load new movie
-    console.log('nextprops',nextProps);
-    if(nextProps.movieId !== this.state.id) {
-      this.setState({
-        id: nextProps.movieId,
-        movie: nextProps.movieObject,
-        watched: false,
-        favorite: false,
-        watchLater: false,
-      });
-      this.getMovieInfo(nextProps.movieId);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if(prevProps.isLoggedIn !== this.props.isLoggedIn) {
-      this.setState({
-        watched: false,
-        favorite: false,
-        watchLater: false,
-      });
-      this.getMovieInfo(this.props.params.id);
-    }
   }
 
   componentDidMount() {
@@ -89,14 +63,17 @@ export default class MoviePage extends Component {
   }
 
   handleMovieInfoStoreChange(store) {
-    this.setState({
-      movie: store.movie,
-      watched: store.watched,
-      favorite: store.favorite,
-      watchLater: store.watchLater,
-    });
+    if(store.movie.id === this.state.id) {
+      this.setState({
+        movie: store.movie,
+        id: store.movie.id,
+        watched: store.watched,
+        favorite: store.favorite,
+        watchLater: store.watchLater,
+      });
+    }
 
-    RouterActions.replaceMovie.defer(store.movie.id, store.movie);
+    RouterActions.replaceMovie.defer(store.movie);
   }
 
   handleOnWatchedClick() {
@@ -131,7 +108,6 @@ export default class MoviePage extends Component {
   }
 
   handleOnActionButtonPress(key) {
-    console.log(key);
     switch(key) {
       case 'favorite':
         this.handleOnFavoriteClick();

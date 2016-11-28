@@ -55,7 +55,7 @@ class MovieCircle extends Component {
 
     this.state = {
       modal: undefined,
-      movie: undefined,
+      movies: [],
       isLoggedIn: UserStore.getIsLoggedIn(),
     }
 
@@ -85,7 +85,7 @@ class MovieCircle extends Component {
   handleRouterStoreChange(store) {
     this.setState({
       modal: store.modal,
-      movie: store.movies[store.movies.length-1],
+      movies: store.movies,
     });
   }
 
@@ -114,7 +114,9 @@ class MovieCircle extends Component {
       }
     }
 
-    console.log('state', this.state.movie)
+    const movie = this.state.movies[this.state.movies.length-1];
+
+    console.log('state', this.state.movies)
 
     return (
       <ThemeProvider uiTheme={uiTheme}>
@@ -122,16 +124,16 @@ class MovieCircle extends Component {
           <StatusBar backgroundColor='#4F2C94'/>
           <App isLoggedIn={this.state.isLoggedIn}/>
           {
-            !!this.state.movie &&
+            !!movie &&
             <Modal
+              key={movie.id}
               animationType={'slide'}
               transparent={false}
               visible={true}
               onRequestClose={() => RouterActions.removeMovie()}
             >
               <MoviePage
-                movieId={this.state.movie.movieId}
-                movieObject={this.state.movie.movieObject}
+                movie={movie}
                 isLoggedIn={this.state.isLoggedIn}
               />
             </Modal>
