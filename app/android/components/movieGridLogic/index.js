@@ -104,7 +104,7 @@ export default class MovieGridLogic extends React.Component {
 
   handleScroll() {
     //Needs to be written for scrollview
-
+    this.getMovies();
   }
 
   render() {
@@ -112,7 +112,9 @@ export default class MovieGridLogic extends React.Component {
       <View style={styles.container}>
         {
           this.state.movies.length > 0 &&
-          <MovieGrid movies={this.state.movies}/>
+          <MovieGrid
+          movies={this.state.movies}
+          onEndReached={this.handleScroll}/>
         }
         {
           this.state.movies.length == 0 &&

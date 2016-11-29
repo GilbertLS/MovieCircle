@@ -20,6 +20,8 @@ export default class MovieGrid extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(rows),
     };
+
+    this.handleOnEndReached = this.handleOnEndReached.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,6 +32,12 @@ export default class MovieGrid extends React.Component {
     this.setState({
       dataSource: ds.cloneWithRows(rows),
     });
+  }
+
+  handleOnEndReached() {
+    if(!!this.props.onEndReached) {
+      this.props.onEndReached()
+    }
   }
 
   render() {
@@ -55,6 +63,7 @@ export default class MovieGrid extends React.Component {
           )
         }}
         style={styles.container}
+        onEndReached={this.handleOnEndReached}
       />
     );
   }
