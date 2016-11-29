@@ -60,23 +60,7 @@ export default class MovieGridLogic extends React.Component {
     }
   }
 
-  getMovies() {
-    if(!this.state.loading && !this.state.end) {
-      //Page does not exist yet
-      //Perform action to get page
-      if(this.props.store == 'list') {
-        ListActions[getFunctionName(this.state.listName, this.props.store)](this.state.page);
-      } else {
-        MovieActions[getFunctionName(this.state.listName, this.props.store)](this.state.page);
-      }
-
-      this.setState({
-        loading: true,
-      });
-    }
-  }
-
-  handleMovieStoreChange(store) {
+  getMovies(dontGetNewPage) {
     let currentPage = [];
     if(this.props.store == 'list') {
       currentPage = ListStore[getFunctionName(this.state.listName, this.props.store)](this.state.page);
@@ -92,16 +76,33 @@ export default class MovieGridLogic extends React.Component {
         movies: this.state.movies.concat(currentPage),
         loading: false,
       });
-    } else if (currentPage) {
+    } else if (currentPage){
       //Page is empty
       //Do not get anymore movies
       this.setState({
         loading: false,
         end: true,
       });
+    } else if(!this.state.loading && !dontGetNewPage) {
+      //Page does not exist yet
+      //Perform action to get page
+      if(this.props.store == 'list') {
+        ListActions[getFunctionName(this.state.listName, this.props.store)](this.state.page);
+      } else {
+        MovieActions[getFunctionName(this.state.listName, this.props.store)](this.state.page);
+      }
+
+      this.setState({
+        loading: true,
+      });
     }
   }
 
+  handleMovieStoreChange(store) {
+    console.log('handleMovieStoreChange')
+    this.getMovies(true);
+  }
+  
   handleScroll() {
     //Needs to be written for scrollview
     this.getMovies();
