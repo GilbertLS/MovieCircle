@@ -102,7 +102,7 @@ export default class MovieGridLogic extends React.Component {
     console.log('handleMovieStoreChange')
     this.getMovies(true);
   }
-  
+
   handleScroll() {
     //Needs to be written for scrollview
     this.getMovies();
@@ -127,6 +127,11 @@ export default class MovieGridLogic extends React.Component {
     );
   }
 }
+
+MovieGridLogic.propTypes = {
+  listName: React.PropTypes.string.isRequired,
+  store: React.PropTypes.string.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

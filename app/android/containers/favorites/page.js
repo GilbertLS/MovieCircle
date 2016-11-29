@@ -59,6 +59,10 @@ export default class FavoritesPage extends Component {
   }
 }
 
+FavoritesPage.propTypes = {
+  initialTab: React.PropTypes.number,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

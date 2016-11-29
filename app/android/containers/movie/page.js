@@ -195,6 +195,10 @@ export default class MoviePage extends Component {
   }
 }
 
+MoviePage.propTypes = {
+  isLoggedIn: React.PropTypes.bool,
+};
+
 const styles = StyleSheet.create({
   scroller: {
     flex: 1,

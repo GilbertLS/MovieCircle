@@ -70,8 +70,8 @@ export default class App extends Component {
   }
 }
 
-App.PropTypes = {
-  isLoggedIn: React.optionalBool,
+App.propTypes = {
+  isLoggedIn: React.PropTypes.bool,
 };
 
 const styles = StyleSheet.create({

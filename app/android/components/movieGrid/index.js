@@ -69,6 +69,11 @@ export default class MovieGrid extends React.Component {
   }
 };
 
+MovieGrid.propTypes = {
+  movies: React.PropTypes.array.isRequired,
+  onEndReached: React.PropTypes.func,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

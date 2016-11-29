@@ -52,6 +52,10 @@ export default class MoviePoster extends React.Component {
   }
 };
 
+MoviePoster.propTypes = {
+  movie: React.PropTypes.object,
+};
+
 const styles = StyleSheet.create({
   poster: {
     flex: 0.5,

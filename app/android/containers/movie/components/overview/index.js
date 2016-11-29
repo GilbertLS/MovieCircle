@@ -121,6 +121,11 @@ export default class Overview extends Component {
   }
 }
 
+Overview.propTypes = {
+  movie: React.PropTypes.object.isRequired,
+  backdrop_path: React.PropTypes.string,
+};
+
 const styles = StyleSheet.create({
   container: {
     padding: 10,

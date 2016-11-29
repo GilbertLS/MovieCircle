@@ -133,6 +133,11 @@ export default class Navigation extends React.Component {
   }
 }
 
+Navigation.propTypes = {
+  onClick: React.PropTypes.func.isRequired,
+  isLoggedIn: React.PropTypes.bool,
+};
+
 const styles = StyleSheet.create({
   buttonIcon: {
     color: '#bdbdbd',

@@ -50,6 +50,10 @@ export default class Cast extends Component {
   }
 }
 
+Cast.propTypes = {
+  cast: React.PropTypes.array.isRequired,
+};
+
 const styles = StyleSheet.create({
   portrait: {
     width: 60,
