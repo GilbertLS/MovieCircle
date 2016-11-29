@@ -109,7 +109,13 @@ class MovieCircle extends Component {
           return <AboutPage/>;
           break;
         case 'favorites':
-          return <FavoritesPage/>;
+          return <FavoritesPage initialTab={0}/>;
+          break;
+        case 'watched':
+          return <FavoritesPage initialTab={1}/>;
+          break;
+        case 'watch_later':
+          return <FavoritesPage initialTab={2}/>;
           break;
       }
     }

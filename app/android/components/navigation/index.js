@@ -91,8 +91,8 @@ export default class Navigation extends React.Component {
     let list = [
       { type: 'title', label: 'Your Lists' },
       { type: 'button', label: 'Favorites', iconName: 'favorite', onclick: () => this.handleOnClick('favorites')},
-      { type: 'button', label: 'Watched', iconName: 'visibility' },
-      { type: 'button', label: 'Watch Later', iconName: 'schedule' },
+      { type: 'button', label: 'Watched', iconName: 'visibility', onclick: () => this.handleOnClick('watched')},
+      { type: 'button', label: 'Watch Later', iconName: 'schedule', onclick: () => this.handleOnClick('watch_later')},
       { type: 'divider' },
       { type: 'title', label: 'Your Account' },
       { type: 'button', label: 'Sign Out', iconName: 'cancel', onclick: () => this.handleSignOutOnClick()},

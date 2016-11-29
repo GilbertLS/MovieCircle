@@ -41,7 +41,9 @@ export default class FavoritesPage extends Component {
           tabBarBackgroundColor='#5e35b1'
           tabBarInactiveTextColor='rgba(255, 255, 255, 0.7)'
           tabBarActiveTextColor='white'
-          tabBarTextStyle={{fontSize: 14, fontWeight: '500'}}>
+          tabBarTextStyle={{fontSize: 14, fontWeight: '500'}}
+          initialPage={this.props.initialTab || 0}
+        >
           <View style={styles.page} tabLabel='FAVORITES'>
             <MovieGridLogic listName='favorites' store='list'/>
           </View>
