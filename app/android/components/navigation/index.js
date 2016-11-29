@@ -2,11 +2,12 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 
-import { Toolbar } from 'react-native-material-ui';
+import { Avatar } from 'react-native-material-ui';
 
 import FacebookActions from '../../../actions/FacebookActions';
 import UserActions from '../../../actions/UserActions';
 import RouterActions from '../../router/actions';
+import FacebookStore from '../../../stores/FacebookStore';
 
 import {
   StyleSheet,
@@ -14,6 +15,7 @@ import {
   Text,
   ScrollView,
   TouchableNativeFeedback,
+  Image,
 } from 'react-native';
 
 export default class Navigation extends React.Component {
@@ -21,10 +23,24 @@ export default class Navigation extends React.Component {
     super(props);
 
     this.state = {
-      isDialogActive: false,
+      me: FacebookStore.getMe(),
     };
 
-    this.handleAboutOnClick = this.handleAboutOnClick.bind(this);
+    this.handleFacebookStoreChange = this.handleFacebookStoreChange.bind(this);
+  }
+
+  componentDidMount() {
+    FacebookStore.listen(this.handleFacebookStoreChange);
+  }
+
+  componentWillUnmount() {
+    FacebookStore.unlisten(this.handleFacebookStoreChange);
+  }
+
+  handleFacebookStoreChange() {
+    this.setState({
+      me: FacebookStore.getMe(),
+    });
   }
 
   handleOnClick(key) {
@@ -32,12 +48,6 @@ export default class Navigation extends React.Component {
       RouterActions.addModal(key);
     }
     this.props.onClick();
-  }
-
-  handleAboutOnClick() {
-    this.setState({
-      isDialogActive: !this.state.isDialogActive,
-    });
   }
 
   handleSignOutOnClick() {
@@ -110,13 +120,26 @@ export default class Navigation extends React.Component {
 
     return (
       <ScrollView>
-        <Toolbar
-          style={{
-            container: { backgroundColor: 'rgba(0,0,0,0)' },
-            leftElement: { color: '#bdbdbd' },
-          }}
-          leftElement='arrow-back'
-          onLeftElementPress={() => this.props.onClick()}/>
+        {
+          this.props.isLoggedIn && !!this.state.me &&
+          <View style={styles.accountInfo}>
+            <Image
+              style={styles.accountInfoImage}
+              source={{uri: this.state.me.picture.data.url}}
+            />
+            <Text
+              style={styles.accountInfoText}
+              numberOfLines={1}
+              ellipsizeMode='tail'
+            >
+              {this.state.me.name}
+            </Text>
+          </View>
+        }
+        {
+          this.props.isLoggedIn && !!this.state.me &&
+          <View style={styles.divider}></View>
+        }
         {
           list.map((item) => {
             if(item.type == 'button') {
@@ -163,5 +186,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#9e9e9e',
     fontWeight: '500',
+  },
+  accountInfo: {
+    margin: 16,
+    flexDirection: 'row',
+  },
+  accountInfoImage: {
+    width: 50,
+    height: 52,
+    borderRadius: 30,
+  },
+  accountInfoText: {
+    color: '#bdbdbd',
+    fontSize: 18,
+    margin: 16,
   }
 });

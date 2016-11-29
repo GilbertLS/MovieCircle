@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 
 import FacebookActions from '../../../actions/FacebookActions';
 import UserActions from '../../../actions/UserActions';
+import FacebookStore from '../../../stores/FacebookStore';
 
 import {
   List,
@@ -29,9 +30,25 @@ export default class Navigation extends React.Component {
 
     this.state = {
       isDialogActive: false,
+      me: FacebookStore.getMe(),
     };
 
     this.handleAboutOnClick = this.handleAboutOnClick.bind(this);
+    this.handleFacebookStoreChange = this.handleFacebookStoreChange.bind(this);
+  }
+
+  componentDidMount() {
+    FacebookStore.listen(this.handleFacebookStoreChange);
+  }
+
+  componentWillUnmount() {
+    FacebookStore.unlisten(this.handleFacebookStoreChange);
+  }
+
+  handleFacebookStoreChange() {
+    this.setState({
+      me: FacebookStore.getMe(),
+    });
   }
 
   handleOnClick(path) {
@@ -56,8 +73,17 @@ export default class Navigation extends React.Component {
     return (
       <nav className={style.container}>
         {
+          !!this.props.isLoggedIn && !!this.state.me &&
+          <div className={style.profile}>
+            <img className={style.picture} src={this.state.me.picture.data.url}/>
+            <div className={style.name}>{this.state.me.name}</div>
+          </div>
+        }
+        {
           !!this.props.isLoggedIn &&
           <List selectable ripple>
+            <ListItem className={style.hidden}/>
+            <ListDivider />
             <ListItem caption='Movies' leftIcon='theaters' onClick={() => {this.handleOnClick(paths.movies)}}/>
             <ListDivider />
             <ListSubHeader caption='Your Lists' />
@@ -88,7 +114,8 @@ export default class Navigation extends React.Component {
           actions={[{label: 'Close', onClick: this.handleAboutOnClick}]}
           active={this.state.isDialogActive}
           onOverlayClick={this.handleAboutOnClick}
-          title='About'>
+          title='About'
+        >
           <div>
             <p>
               MovieCircle is created by Gilbert Lavergne-Shank.

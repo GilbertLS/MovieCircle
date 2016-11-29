@@ -122,8 +122,6 @@ class MovieCircle extends Component {
 
     const movie = this.state.movies[this.state.movies.length-1];
 
-    console.log('state', this.state.movies)
-
     return (
       <ThemeProvider uiTheme={uiTheme}>
         <View style={styles.container}>
@@ -133,7 +131,7 @@ class MovieCircle extends Component {
             !!movie &&
             <Modal
               key={movie.id}
-              animationType={'slide'}
+              animationType={'none'}
               transparent={false}
               visible={true}
               onRequestClose={() => RouterActions.removeMovie()}

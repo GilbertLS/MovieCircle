@@ -2,3 +2,27 @@
   flex: 1;
   overflow-y: auto;
 }
+
+.hidden {
+  display: none;
+}
+
+.profile {
+  margin: 1.6rem;
+  margin-bottom: -0.2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .picture {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+  }
+
+  .name {
+    margin-left: 1.6rem;
+    color: #bdbdbd;
+    font-size: 1.6rem;
+  }
+}
