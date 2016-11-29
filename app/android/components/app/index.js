@@ -70,6 +70,10 @@ export default class App extends Component {
   }
 }
 
+App.PropTypes = {
+  isLoggedIn: React.optionalBool,
+};
+
 const styles = StyleSheet.create({
   toolbar: {
     backgroundColor: '#5e35b1',

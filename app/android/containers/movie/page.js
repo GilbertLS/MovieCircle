@@ -31,6 +31,7 @@ export default class MoviePage extends Component {
 
     this.state = {
       movie: props.movie,
+      backdrop_path: props.movie.backdrop_path,
       id: props.movie.id,
       watched: false,
       favorite: false,
@@ -143,7 +144,9 @@ export default class MoviePage extends Component {
           <View tabLabel='DETAILS'>
             {
               !!movie &&
-              <Overview movie={movie}/>
+              <Overview
+                movie={movie}
+                backdrop_path={this.state.backdrop_path}/>
             }
           </View>
           <View tabLabel='CAST'>

@@ -44,15 +44,16 @@ export default class Overview extends Component {
 
   render() {
     const movie = this.props.movie;
+    const backdrop_path = this.props.backdrop_path || movie.backdrop_path;
 
     return (
       <ScrollView>
         {
-          !!movie && !!movie.backdrop_path &&
+          !!movie && !!backdrop_path &&
           <View>
             <Image
               style={styles.backdrop}
-              source={{ uri: 'http://image.tmdb.org/t/p/w780' + movie.backdrop_path}}
+              source={{ uri: 'http://image.tmdb.org/t/p/w780' + backdrop_path}}
             >
               {
                 !!movie && !!movie.videos && movie.videos.results.length > 0 &&
