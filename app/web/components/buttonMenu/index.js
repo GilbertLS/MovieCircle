@@ -61,3 +61,12 @@ ButtonMenu.defaultProps = {
   position: 'topRight',
   selectable: false
 };
+
+ButtonMenu.propTypes = {
+  onSelect: React.PropTypes.func,
+  onShow: React.PropTypes.func,
+  position: React.PropTypes.string,
+  menuRipple: React.PropTypes.bool,
+  selectable: React.PropTypes.bool,
+  selected: React.PropTypes.any,
+};

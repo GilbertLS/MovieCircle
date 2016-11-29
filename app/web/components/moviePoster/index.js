@@ -4,7 +4,7 @@ import OnVisible from 'react-on-visible';
 
 import style from './style.scss';
 
-export default class moviePoster extends OnVisible {
+export default class MoviePoster extends OnVisible {
   constructor(props) {
     super(props);
 
@@ -56,3 +56,7 @@ export default class moviePoster extends OnVisible {
     );
   }
 }
+
+MoviePoster.propTypes = {
+  movie: React.PropTypes.object.isRequired,
+};

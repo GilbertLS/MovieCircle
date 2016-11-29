@@ -49,3 +49,7 @@ export default class Backdrop extends Component {
     );
   }
 }
+
+Backdrop.propTypes = {
+  backdropPath: React.PropTypes.string,
+};

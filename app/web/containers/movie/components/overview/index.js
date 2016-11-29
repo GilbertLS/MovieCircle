@@ -27,3 +27,7 @@ export default class Overview extends Component {
     );
   }
 }
+
+Overview.propTypes = {
+  movie: React.PropTypes.object.isRequired,
+};

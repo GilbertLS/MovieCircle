@@ -23,3 +23,8 @@ export default class MovieGrid extends React.Component {
     );
   }
 }
+
+MovieGrid.propTypes = {
+  className: React.PropTypes.string,
+  movies: React.PropTypes.array.isRequired,
+};

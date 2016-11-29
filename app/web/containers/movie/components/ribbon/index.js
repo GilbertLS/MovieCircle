@@ -62,3 +62,7 @@ export default class Ribbon extends React.Component {
     )
   }
 }
+
+Ribbon.propTypes = {
+  movie: React.PropTypes.object.isRequired,
+};

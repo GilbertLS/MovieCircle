@@ -194,7 +194,7 @@ export default class MoviePage extends Component {
             !!movie.recommendations && movie.recommendations.results.length > 0 &&
             <div className={style.content}>
               <div className={style.sectionTitle}>Recommendations</div>
-              <Recommendations recommendations={movie.recommendations}/>
+              <Recommendations recommendations={movie.recommendations.results}/>
             </div>
           }
         </div>
@@ -207,3 +207,7 @@ export default class MoviePage extends Component {
     );
   }
 }
+
+MoviePage.propTypes = {
+  isLoggedIn: React.PropTypes.bool,
+};

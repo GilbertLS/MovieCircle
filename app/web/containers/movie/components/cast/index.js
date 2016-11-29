@@ -74,3 +74,7 @@ export default class Cast extends Component {
     );
   }
 }
+
+Cast.propTypes = {
+  cast: React.PropTypes.array.isRequired,
+};

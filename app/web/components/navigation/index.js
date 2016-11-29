@@ -106,3 +106,7 @@ export default class Navigation extends React.Component {
     );
   }
 }
+
+Navigation.propTypes = {
+  isLoggedIn: React.PropTypes.bool,
+};

@@ -161,3 +161,8 @@ const getFunctionName = function(listName, store) {
     }
   }
 }
+
+MovieGridLogic.propTypes = {
+  listName: React.PropTypes.string.isRequired,
+  store: React.PropTypes.string.isRequired,
+};

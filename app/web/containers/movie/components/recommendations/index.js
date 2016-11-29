@@ -11,14 +11,18 @@ export default class Recommendations extends Component {
     const recommendations = this.props.recommendations;
 
     return (
-      !!recommendations && recommendations.results.length > 0 &&
+      !!recommendations && recommendations.length > 0 &&
       <div className={style.container}>
         {
           <div className={style.recommendations}>
-            <MovieGrid className={style.movieGrid} movies={recommendations.results.slice(0,6)}/>
+            <MovieGrid className={style.movieGrid} movies={recommendations.slice(0,6)}/>
           </div>
         }
       </div>
     );
   }
 }
+
+Recommendations.propTypes = {
+  recommendations: React.PropTypes.array.isRequired,
+};

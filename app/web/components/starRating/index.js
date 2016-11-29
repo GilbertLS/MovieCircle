@@ -39,3 +39,7 @@ export default class StarRating extends React.Component {
     );
   }
 }
+
+StarRating.propTypes = {
+  rating: React.PropTypes.number.isRequired,
+};

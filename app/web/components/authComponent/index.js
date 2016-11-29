@@ -24,3 +24,7 @@ export default class AuthComponent extends React.Component {
     );
   }
 }
+
+AuthComponent.propTypes = {
+  isLoggedIn: React.PropTypes.bool,
+};
