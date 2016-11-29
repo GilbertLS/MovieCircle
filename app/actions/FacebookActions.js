@@ -1,18 +1,28 @@
 import alt from '../alt';
-const APP_ID = '1065027943579868';
+import config from '../config.js';
+const APP_ID = config.appID;
 
 class FacebookActions {
   init() {
-    window.fbAsyncInit = () => {
-      FB.init({
+    if(!!window.FB) {
+      window.FB.init({
         appId      : APP_ID,
         xfbml      : true,
         version    : 'v2.8'
       });
 
-      //After initialization, get the login status
       this.getLoginStatus();
-    };
+    } else {
+      window.fbAsyncInit = () => {
+        FB.init({
+          appId      : APP_ID,
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+
+        this.getLoginStatus();
+      };
+    }
 
     return true;
   }

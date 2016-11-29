@@ -1,4 +1,5 @@
-const URL = 'http://192.168.1.126:3001/api/';
+import config from '../config.js';
+const URL = config.backendURL + '/api/';
 
 export default {
   loginFacebook(authObject, callback) {
