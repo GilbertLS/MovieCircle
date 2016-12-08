@@ -36,7 +36,13 @@ const getMovies = (path, callback, authObject) => {
       "Authorization": (!!authObject) ? authObject.accessToken : '',
     },
   })
-  .then((response) => {return response.json()})
+  .then((response) => {
+    if(response.status == 200) {
+      return response.json()
+    }
+
+    return {};
+  })
   .then((response) => {
     console.log(response);
     callback(response);
