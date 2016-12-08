@@ -8,6 +8,7 @@ import {
   Layout,
   NavDrawer,
   Panel,
+  Snackbar,
 } from 'react-toolbox';
 
 import {
@@ -24,6 +25,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       drawerActive: false,
+      snackbarActive: false,
       isLoggedIn: UserStore.getIsLoggedIn(),
     }
 
@@ -42,6 +44,7 @@ export default class App extends React.Component {
   handleUserStoreChange(state) {
     this.setState({
       isLoggedIn: UserStore.getIsLoggedIn(),
+      snackbarActive: (!UserStore.getIsLoggedIn() && !!this.state.isLoggedIn),
     });
   }
 
@@ -73,6 +76,15 @@ export default class App extends React.Component {
             isLoggedIn: this.state.isLoggedIn
           })}
           </div>
+          <Snackbar
+            active={this.state.snackbarActive}
+            action='Dismiss'
+            label='You Have Been Logged Out.'
+            onClick={() => this.setState({snackbarActive: false})}
+            ref='snackbar'
+            type='cancel'
+            className={style.snackbar}
+          />
         </Panel>
       </Layout>
     );

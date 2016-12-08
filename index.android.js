@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Snackbar from 'react-native-android-snackbar';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 import RouterStore from './app/android/router/store';
 import RouterActions from './app/android/router/actions';
@@ -89,7 +90,14 @@ class MovieCircle extends Component {
     });
   }
 
-  handleUserStoreChange() {
+  handleUserStoreChange(store) {
+    if(!UserStore.getIsLoggedIn() && !!this.state.isLoggedIn) {
+      Snackbar.show('You Have Been Logged Out!', {
+        duration: Snackbar.UNTIL_CLICK,
+        actionColor: 'gold',
+      });
+    }
+
     this.setState({
       isLoggedIn: UserStore.getIsLoggedIn(),
     });
