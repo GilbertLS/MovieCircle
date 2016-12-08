@@ -1,6 +1,8 @@
 import config from '../config.js';
 const URL = config.backendURL;
 
+import FacebookActions from '../actions/FacebookActions';
+
 export default {
   getPopularMovies(page, callback) {
     getMovies('/movie/popular/' + page, callback);
@@ -37,9 +39,10 @@ const getMovies = (path, callback, authObject) => {
     },
   })
   .then((response) => {
-    if(response.status == 200) {
+    if(response.status == 200)
       return response.json()
-    }
+    else if(response.status == 401)
+      FacebookActions.logout.defer();
 
     return {};
   })

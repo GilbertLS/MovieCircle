@@ -1,6 +1,8 @@
 import config from '../config.js';
 const URL = config.backendURL;
 
+import FacebookActions from '../actions/FacebookActions';
+
 export default {
   favoriteMovie(movieId, authObject, callback) {
     const path = URL + '/api/user/' + authObject.userID + '/favorite/' + movieId;
@@ -66,6 +68,9 @@ const callUserRoute = function(path, method, accessToken, callback) {
     },
   })
   .then((response) => {
+    if(response.status == 401)
+      FacebookActions.logout.defer();
+
     callback(response);
   })
   .catch((err) => {
