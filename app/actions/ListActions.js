@@ -28,6 +28,7 @@ const callUserRouteDispatch = function(page, userAPIFunction) {
       if(response.status !== 200) {
         //Error Handling
         dispatch([]);
+        return;
       }
 
       response.json()
