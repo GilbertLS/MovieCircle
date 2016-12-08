@@ -15,7 +15,7 @@ class MovieInfoStore {
     });
 
     this.exportPublicMethods({
-
+      getMovie: this.getMovie,
     });
 
     this.state = {
@@ -96,6 +96,10 @@ class MovieInfoStore {
     } else {
       this.setState({ watchLater: true });
     }
+  }
+
+  getMovie() {
+    return this.state.movie;
   }
 }
 

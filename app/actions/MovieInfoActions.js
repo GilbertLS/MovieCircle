@@ -63,7 +63,7 @@ const callUserRouteDispatch = function(movieId, userAPIFunction) {
   return (dispatch) => {
     userAPIFunction(movieId, auth, (response) => {
       if(response.status == 200) {
-        dispatch(true);
+        dispatch(movieId);
       } else {
         //Error Handling
         dispatch(false);
