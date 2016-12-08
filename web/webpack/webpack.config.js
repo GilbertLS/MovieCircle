@@ -4,25 +4,30 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     path.join(__dirname, '../../app/web/index.js')
   ],
   output: {
     path: path.join(__dirname, '../build/'),
     filename: 'app.js',
-    publicPath: '/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new ExtractTextPlugin('style.css', { allChunks: true }),
     new HtmlWebpackPlugin({
-      title: 'DEV-MovieCircle',
+      title: 'MovieCircle',
       template: path.join(__dirname, 'index.html'),
       inject: 'body'
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.optimize.AggressiveMergingPlugin(),
   ],
   module: {
     loaders: [
@@ -39,8 +44,5 @@ module.exports = {
   },
   sassLoader: {
     data: '@import "' + path.resolve(__dirname, '_theme.scss') + '";'
-  },
-  devServer: {
-    historyApiFallback: true
   }
 };

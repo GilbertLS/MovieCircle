@@ -5,7 +5,7 @@
   "scripts": {
     "start-android": "node node_modules/react-native/local-cli/cli.js start",
     "start-web": "node ./web/webpack/server.js",
-    "build-web": "webpack -p --progress --config webpack.production.config.js",
+    "build-web": "webpack -p --progress --config ./web/webpack/webpack.config.js",
     "clean": "rm /web/build/app.js"
   },
   "devDependencies": {
