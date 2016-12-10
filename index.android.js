@@ -136,19 +136,22 @@ class MovieCircle extends Component {
           <StatusBar backgroundColor='#4F2C94'/>
           <App isLoggedIn={this.state.isLoggedIn}/>
           {
-            !!movie &&
-            <Modal
-              key={movie.id}
-              animationType={'none'}
-              transparent={false}
-              visible={true}
-              onRequestClose={() => RouterActions.removeMovie()}
-            >
-              <MoviePage
-                movie={movie}
-                isLoggedIn={this.state.isLoggedIn}
-              />
-            </Modal>
+            this.state.movies.map((movie, index) => {
+              return (
+                <Modal
+                  key={movie.id + ' ' + index}
+                  animationType={'slide'}
+                  transparent={false}
+                  visible={true}
+                  onRequestClose={() => RouterActions.removeMovie()}
+                >
+                  <MoviePage
+                    movie={movie}
+                    isLoggedIn={this.state.isLoggedIn}
+                  />
+                </Modal>
+              )
+            })
           }
           {
             !!this.state.modal &&

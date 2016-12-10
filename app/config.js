@@ -1,4 +1,4 @@
 export default {
-  backendURL: 'http://192.168.1.126:3001',
+  backendURL: 'https://moviecircle.gilbertls.com',
   appID: '1065027943579868',
 };
