@@ -13,5 +13,3 @@ Frontend seen from Android. React Native App left. Web browser right.
 
 
 Server can be found [here](https://github.com/GilbertLS/MovieCircleServer)
-
-Project is live [here](https://moviecircle.gilbertls.com/)
